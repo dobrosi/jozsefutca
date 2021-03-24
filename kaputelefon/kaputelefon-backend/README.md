@@ -1,4 +1,3 @@
-
 # TODO
 update at public szerver (github) + version number handling
 - egyreszt kell vmi public tarhely. Github idealis lenne a celra
@@ -6,12 +5,13 @@ update at public szerver (github) + version number handling
 - problema viszont a verzioszam ellenorzese. el akarom kerulni azt, h a mutyi github/gitlab api-t hasznaljon. Erre kene vmi megoldas. Akar az is lehet, h a webconfig felulet intezi. (lekeri a verzioszamot a mutyitol, felnez githubra lekeri, mik a lehetosegek, es ha van ujabb, akkor ratolja. Igy lehet, h a progress-kijelzes is egyszerusodik)
 
 # Dokumentálás
-Celkozonseg: telefont kezelni tudo, de SIP-hez semmit nem erto emberek
+Ahogy az IKEA csinalja. Celkozonseg: telefont kezelni tudo, de SIP-hez semmit nem erto emberek
 
 # Tesztelés
 androidon, iphoneon
 
-# REST Api
+# REST API
+Első draft HTML:
 
 ```html
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>
@@ -74,10 +74,11 @@ $(eval IP := $(shell avahi-resolve -n kaputelefon.local | head -1 | cut -f 2))
 curl -# -X PUT --data-binary @$(APP_BIN) $(IP)/ota -o /dev/null
 curl -X PUT $(IP)/reset   --> ujrainditas, lasd lejjebb
 ```
+## Fájlok
 
-## /accounts
-lista a SIP accountokrol. Formatum https://github.com/baresip/baresip/blob/master/docs/examples/accounts
-
+### /file/accounts - *GET, PUT*
+Lista a SIP accountokrol.
+[Formatum](https://github.com/baresip/baresip/blob/master/docs/examples/accounts)
 
 ```
 #
@@ -119,8 +120,9 @@ lista a SIP accountokrol. Formatum https://github.com/baresip/baresip/blob/maste
 <sip:kapu@sip.antisip.com;transport=udp>;auth_pass=12345678;outbound="sip:sip.antisip.com:9090"
 
 ```
-## /contacts
-lista a kontaktokrol. Az elsot hivja csongeteskor. Ez veglegesben szerintem az elso 2 lesz. formatum: https://github.com/baresip/baresip/blob/master/docs/examples/
+### /file/contacts - *GET, PUT*
+Lista a kontaktokrol. Az elsot hivja csongeteskor. Ez veglegesben szerintem az elso 2 lesz. 
+[Formatum](https://github.com/baresip/baresip/blob/master/docs/examples/)
 
 ```
 "boborjan" <sip:boborjan@sip.antisip.com>
@@ -145,28 +147,41 @@ fi
 ```
 Es akkor valszeg lesz egy /index.html, ahova feltoltheted az uit. Legalabbi fejlesztes alatt, mert a shipping verzioban valszeg bele kell forditani (legalabbis az appal egyutt kell updatelni a html uit is)
 
-Ezek itt a nem fileok:
-"/reset", HTTP_PUT   ujrainditas
-"/auth", HTTP_PUT wifi parameterek, pl
+### /file/ota - *PUT*
+Firmware feltoltes. Ezt majd kesobb tisztazzuk.
+
+## Nem fájlok
+
+### /restart - *GET*
+Ujrainditas.
+
+### /wifi_settings - *GET, PUT*
+wifi parameterek
+
+```
 curl -X PUT 192.168.0.20/auth?password=12345678\&ssid=f
+```
 
-"/kapu", HTTP_PUT/GET, pl.
+### /gate - *GET, PUT*
+Itt ezeket lehet beallitani:
+-kvol: kapu volume (csengetes hangero)
+-rvol: ring volume (ajtocsengo hangero)
+-cvol: config mode beep hangero
+-type: kaputelefon tipus: codefon,mkt,laskomex (jelenleg csak codefon)
+-code: kapukod (marmint a keszulek kodja: 1-255)
+
+```
 curl -X PUT 192.168.0.47/kapu?kvol=8
-itt ezeket lehet beallitani:
-kvol: kapu volume (csengetes hangero)
-rvol: ring volume (ajtocsengo hangero)
-cvol: config mode beep hangero
-type: kaputelefon tipus: codefon,mkt,laskomex (jelenleg csak codefon)
-code: kapukod (marmint a keszulek kodja: 1-255)
+```
 
-"/factory_defaults", HTTP_PUT
-factory reset
+### /factory_reset - *GET, PUT*
+Factory reset.
 
-"/mac", HTTP_GET
-mac cim. ennek majd az eol deploymentnel lesz ertelme
+### /mac - *GET*
+MAC cim. Ennek majd az eol deploymentnel lesz ertelme.
 
-"/testcall", HTTP_PUT
-teszthivas. ilyen button is kell majd a guira.
+### /testcall - *GET*
+Teszthivas. Ilyen button is kell majd a guira.
 
-"/appversion", HTTP_GET
-applikacio verziot lehet itt lekerni
+### /appversion - *GET*
+Applikacio verziot lehet itt lekerni.
