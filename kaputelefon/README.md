@@ -145,10 +145,15 @@ else
 curl $IP/$2
 fi
 ```
-Es akkor valszeg lesz egy /index.html, ahova feltoltheted az uit. Legalabbi fejlesztes alatt, mert a shipping verzioban valszeg bele kell forditani (legalabbis az appal egyutt kell updatelni a html uit is)
 
 ### /file/ota - *PUT*
 Firmware feltoltes. Ezt majd kesobb tisztazzuk.
+
+### / *GET, (PUT)*
+Es akkor valszeg lesz egy /index.html, ahova feltoltheted az uit. Legalabbi fejlesztes alatt, mert a shipping verzioban valszeg bele kell forditani (legalabbis az appal egyutt kell updatelni a html uit is) Ez egy tomoritett gzip fajl es az eszkoz igy kuldi:
+```
+Content-Encoding: gzip
+```
 
 ## Nem fájlok
 
@@ -159,19 +164,19 @@ Ujrainditas.
 wifi parameterek
 
 ```
-curl -X PUT 192.168.0.20/auth?password=12345678\&ssid=f
+curl -X PUT 192.168.0.20/wifi_settings?password=12345678\&ssid=f
 ```
 
 ### /gate - *GET, PUT*
 Itt ezeket lehet beallitani:
--kvol: kapu volume (csengetes hangero)
--rvol: ring volume (ajtocsengo hangero)
--cvol: config mode beep hangero
--type: kaputelefon tipus: codefon,mkt,laskomex (jelenleg csak codefon)
--code: kapukod (marmint a keszulek kodja: 1-255)
+- gvol: kapu volume (csengetes hangero)
+- rvol: ring volume (ajtocsengo hangero)
+- cvol: config mode beep hangero
+- type: kaputelefon tipus: codefon,mkt,laskomex (jelenleg csak codefon)
+- code: kapukod (marmint a keszulek kodja: 1-255)
 
 ```
-curl -X PUT 192.168.0.47/kapu?kvol=8
+curl -X PUT 192.168.0.47/gate?gvol=8
 ```
 
 ### /factory_reset - *GET, PUT*
