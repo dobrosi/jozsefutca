@@ -157,17 +157,17 @@ Content-Encoding: gzip
 
 ## Nem fájlok
 
-### /restart - *GET*
+### /api/restart - *GET*
 Ujrainditas.
 
-### /wifi_settings - *GET, PUT*
+### /api/wifi_settings - *GET, PUT*
 wifi parameterek
 
 ```
 curl -X PUT 192.168.0.20/wifi_settings?password=12345678\&ssid=f
 ```
 
-### /gate - *GET, PUT*
+### /api/gate - *GET, PUT*
 Itt ezeket lehet beallitani:
 - gvol: kapu volume (csengetes hangero)
 - rvol: ring volume (ajtocsengo hangero)
@@ -179,14 +179,14 @@ Itt ezeket lehet beallitani:
 curl -X PUT 192.168.0.47/gate?gvol=8
 ```
 
-### /factory_reset - *GET, PUT*
+### /api/factory_reset - *GET, PUT*
 Factory reset.
 
-### /mac - *GET*
+### /api/mac - *GET*
 MAC cim. Ennek majd az eol deploymentnel lesz ertelme.
 
-### /testcall - *GET*
+### /api/testcall - *GET*
 Teszthivas. Ilyen button is kell majd a guira.
 
-### /appversion - *GET*
+### /api/appversion - *GET*
 Applikacio verziot lehet itt lekerni.
