@@ -10,10 +10,10 @@
 	<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sticky-footer-navbar/">
 
 	<!-- Bootstrap core CSS -->
-	<link href="bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Custom styles for this template -->
-	<link href="index.css" rel="stylesheet">
+	<link href="css/index.css" rel="stylesheet">
 </head>
 
 <body>
@@ -25,27 +25,88 @@
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="#">Beállítások</a>
+					<a class="nav-link" href="#settings" onclick="menu(this)">Beállítások</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Telefonkönyv</a>
+					<a class="nav-link" href="#phonebook" onclick="menu(this)">Telefonkönyv</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Szervíz</a>
+					<a class="nav-link" href="#admin" onclick="menu(this)">Szervíz</a>
 				</li>
 			</ul>
+			<form class="form-inline">
+					<input class="form-control" placeholder="Url" id="urlText" value="http://localhost:8080">
+			</form>
 		</div>
 	</nav>
 </header>
 
 <!-- Begin page content -->
 <main role="main" class="container">
-	<h1 class="mt-5">Sticky footer with fixed navbar</h1>
-	<p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body &gt; .container</code>.</p>
-	<p>Back to <a href="../sticky-footer/">the default sticky footer</a> minus the navbar.</p>
+	<div class="page hidden" id="admin">
+
+			<div class="form-group">
+				<button class="btn" onclick="restart()">Újraindítás</button>
+			</div>
+
+			<div class="form-group">
+				<button class="btn" onclick="factoryReset()">Gyári beállítások visszaállítása</button>
+			</div>
+	</div>
+	<div class="page hidden" id="phonebook"></div>
+	<div class="page hidden" id="settings">
+		<div class="card">
+			<div class="card-body">
+				<form>
+					<div class="form-group">
+						<label for="ssidText">SSID</label>
+						<input type="text" class="form-control" id="ssidText" placeholder="SSID">
+					</div>
+					<div class="form-group">
+						<label for="passwordText">Jelszó</label>
+						<input type="text" class="form-control" id="passwordText" placeholder="Jelszó">
+					</div>
+					<button type="submit" class="btn btn-primary">Mentés</button>
+				</form>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-body">
+				<form>
+					<div class="form-group">
+						<label for="gvolText">Csengetés hangerő</label>
+						<input type="text" class="form-control" id="gvolText" placeholder="Csengetés hangerő">
+					</div>
+					<div class="form-group">
+						<label for="rvolText">Ajtócsengő hangerő</label>
+						<input type="text" class="form-control" id="rvolText" placeholder="Ajtócsengő hangerő">
+					</div>
+					<div class="form-group">
+						<label for="cvolText">Beep hangerő</label>
+						<input type="text" class="form-control" id="cvolText" placeholder="Beep hangerő">
+					</div>
+					<div class="form-group">
+						<label for="typeSelect">Kaputelefon típusa</label>
+						<select class="custom-select" id="typeSelect">
+							<option selected>Válasszon...</option>
+							<option value="codefon">Codefon</option>
+							<option value="mkt">MKT</option>
+							<option value="laskomex">Laskomex</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="codeText">Kapukód</label>
+						<input type="text" class="form-control" id="codeText" placeholder="Kapukód">
+					</div>
+					<button type="submit" class="btn btn-primary">Mentés</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </main>
 
 <footer class="footer">
@@ -57,9 +118,13 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script
+		src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="popper.min.js"></script>
-<script src="bootstrap.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>
