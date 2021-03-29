@@ -1,11 +1,8 @@
 package com.github.jozsefutca.kaputelefon.model;
 
 import java.time.LocalDateTime;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,11 +18,17 @@ public class Settings {
 
   @Embedded private Gate gate;
 
+  @Lob
   private String contacts;
 
+  @Lob
   private String accounts;
 
+  @Lob
   private String config;
+
+  @Lob
+  private String indexPage;
 
   public Settings() {
     init();
@@ -82,5 +85,13 @@ public class Settings {
 
   public void setConfig(String config) {
     this.config = config;
+  }
+
+  public String getIndexPage() {
+    return indexPage;
+  }
+
+  public void setIndexPage(String indexPage) {
+    this.indexPage = indexPage;
   }
 }
