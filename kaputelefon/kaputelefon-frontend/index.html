@@ -54,6 +54,10 @@ code {
 .hidden {
     display: none;
 }
+
+#urlText {
+    width: 300;
+}
 	</style>
 </head>
 
@@ -207,7 +211,7 @@ code {
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 		crossorigin="anonymous"></script>
 <script>
-url = 'http://localhost:8080';
+url = document.location.href;
 
 $( document ).ready(function () {
     $('#urlText').on('change', function() {
@@ -218,6 +222,8 @@ $( document ).ready(function () {
     	loadForm($(this));
     	$(this).submit(saveForm);
     });
+
+    $('#urlText').val(url);
 });
 
 function showAlert(msg) {
