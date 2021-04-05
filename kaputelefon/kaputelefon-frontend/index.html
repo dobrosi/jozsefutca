@@ -88,6 +88,18 @@ code {
 
 <!-- Begin page content -->
 <main role="main" class="container">
+
+	<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+		<div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="me-auto">Info</strong>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+			<div class="toast-body" id="alertText">
+			</div>
+		</div>
+	</div>
+
 	<div class="page hidden" id="admin">
 		<div class="mb-3">
 			<button type="button" class="btn btn-primary" onclick="restart()">Újraindítás</button>
@@ -194,7 +206,6 @@ code {
 		src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 		crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script>
 url = 'http://localhost:8080';
 
@@ -209,6 +220,12 @@ $( document ).ready(function () {
     });
 });
 
+function showAlert(msg) {
+	$('#alertText').html(msg);
+	var toast = new bootstrap.Toast(document.getElementById('liveToast'));
+	toast.show();
+}
+
 function loadForm(form) {
 	action = form.attr('action');
 	if (action != null) {
@@ -219,7 +236,7 @@ function loadForm(form) {
 				form.jsonToForm(data);
 			},
 			error: function(result) {
-				alert('error');
+				showAlert('error');
 			}
 		});
 	}
@@ -236,10 +253,10 @@ function saveForm(event) {
 			contentType: "application/json",
 			data: JSON.stringify(Object.fromEntries(new FormData(event.target).entries())),
 			success: function(result) {
-				alert(result);
+				showAlert(result);
 			},
 			error: function(result) {
-				alert('error');
+				showAlert('error');
 			}
 		});
 	}
@@ -262,10 +279,10 @@ function restart() {
         url: url + '/api/restart',
         type: 'GET',
         success: function(result) {
-            alert(result);
+            showAlert(result);
         },
         error: function(result) {
-            alert('error');
+            showAlert('error');
         }
     });
 }
@@ -275,10 +292,10 @@ function factoryReset() {
         url: url + '/api/factory_reset',
         type: 'GET',
         success: function(result) {
-            alert(result);
+            showAlert(result);
         },
         error: function(result) {
-            alert('error');
+            showAlert('error');
         }
     });
 }
