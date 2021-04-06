@@ -53,10 +53,4 @@ public class FileController {
     settingsRepository.findFirstByOrderById().setConfig(config);
     return ok("Saved");
   }
-
-  @PutMapping(value = "/ota")
-  @Transactional
-  public ResponseEntity<String> ota(@RequestBody String ota) {
-    return ok("OK ota");
-  }
 }

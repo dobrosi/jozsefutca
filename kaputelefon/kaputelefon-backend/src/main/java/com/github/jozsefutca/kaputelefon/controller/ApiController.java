@@ -65,4 +65,10 @@ public class ApiController {
     settingsRepository.findFirstByOrderById().setIntercom(intercom);
     return ok("Saved");
   }
+
+  @PutMapping(value = "/ota")
+  @Transactional
+  public ResponseEntity<String> ota(@RequestBody String ota) {
+    return ok("OK ota");
+  }
 }
