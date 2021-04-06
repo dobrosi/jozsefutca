@@ -3,6 +3,7 @@ package com.github.jozsefutca.kaputelefon.model;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 
+import io.swagger.models.auth.In;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,7 +17,7 @@ public class Settings {
 
   @Embedded private WifiSettings wifiSettings;
 
-  @Embedded private Gate gate;
+  @Embedded private Intercom intercom;
 
   @Lob
   private String contacts;
@@ -36,7 +37,7 @@ public class Settings {
 
   private void init() {
     wifiSettings = new WifiSettings();
-    gate = new Gate();
+    intercom = new Intercom();
   }
 
   public Long getId() {
@@ -55,12 +56,12 @@ public class Settings {
     this.wifiSettings = wifiSettings;
   }
 
-  public Gate getGate() {
-    return gate;
+  public Intercom getIntercom() {
+    return intercom;
   }
 
-  public void setGate(Gate gate) {
-    this.gate = gate;
+  public void setIntercom(Intercom intercom) {
+    this.intercom = intercom;
   }
 
   public String getContacts() {

@@ -146,9 +146,6 @@ curl $IP/$2
 fi
 ```
 
-### /file/ota - *PUT*
-Firmware feltoltes. Ezt majd kesobb tisztazzuk.
-
 ### / *GET, (PUT)*
 Es akkor valszeg lesz egy /index.html, ahova feltoltheted az uit. Legalabbi fejlesztes alatt, mert a shipping verzioban valszeg bele kell forditani (legalabbis az appal egyutt kell updatelni a html uit is) Ez egy tomoritett gzip fajl es az eszkoz igy kuldi:
 ```
@@ -167,16 +164,18 @@ wifi parameterek
 curl -X PUT 192.168.0.20/wifi_settings?password=12345678\&ssid=f
 ```
 
-### /api/gate - *GET, PUT*
+### /api/icom - *GET, PUT*
 Itt ezeket lehet beallitani:
 - gvol: kapu volume (csengetes hangero)
 - rvol: ring volume (ajtocsengo hangero)
 - cvol: config mode beep hangero
+- mvol: microphone volume
+- hvol: headphone volume
 - type: kaputelefon tipus: codefon,mkt,laskomex (jelenleg csak codefon)
 - code: kapukod (marmint a keszulek kodja: 1-255)
 
 ```
-curl -X PUT 192.168.0.47/gate?gvol=8
+curl -X PUT 192.168.0.47/icom?gvol=8
 ```
 
 ### /api/factory_reset - *GET, PUT*
@@ -190,3 +189,6 @@ Teszthivas. Ilyen button is kell majd a guira.
 
 ### /api/appversion - *GET*
 Applikacio verziot lehet itt lekerni.
+
+### /api/ota - *PUT*
+Firmware feltoltes. Ezt majd kesobb tisztazzuk.

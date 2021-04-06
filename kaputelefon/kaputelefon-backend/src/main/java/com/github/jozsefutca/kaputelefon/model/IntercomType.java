@@ -1,6 +1,6 @@
 package com.github.jozsefutca.kaputelefon.model;
 
-public enum GateType {
+public enum IntercomType {
   codefon,
   mkt,
   laskome
