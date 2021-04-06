@@ -1,18 +1,15 @@
 package com.github.jozsefutca.kaputelefon.controller;
 
-import static org.springframework.http.ResponseEntity.ok;
-import javax.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.github.jozsefutca.kaputelefon.model.Gate;
+import com.github.jozsefutca.kaputelefon.model.Intercom;
 import com.github.jozsefutca.kaputelefon.model.WifiSettings;
 import com.github.jozsefutca.kaputelefon.repository.SettingsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @CrossOrigin
 @RestController
@@ -57,15 +54,15 @@ public class ApiController {
     return ok("Saved");
   }
 
-  @GetMapping(value = "/gate")
-  public ResponseEntity<Gate> loadGate() {
-    return ok(settingsRepository.findFirstByOrderById().getGate());
+  @GetMapping(value = "/icom")
+  public ResponseEntity<Intercom> loadIntercom() {
+    return ok(settingsRepository.findFirstByOrderById().getIntercom());
   }
 
-  @PutMapping(value = "/gate")
+  @PutMapping(value = "/icom")
   @Transactional
-  public ResponseEntity<String> saveGate(@RequestBody Gate gate) {
-    settingsRepository.findFirstByOrderById().setGate(gate);
+  public ResponseEntity<String> saveIntercom(@RequestBody Intercom intercom) {
+    settingsRepository.findFirstByOrderById().setIntercom(intercom);
     return ok("Saved");
   }
 }
