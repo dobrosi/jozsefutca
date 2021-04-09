@@ -56,7 +56,7 @@ code {
 }
 
 #urlText {
-    width: 500px;
+    width: 300px;
 }
 	</style>
 </head>
@@ -67,7 +67,7 @@ code {
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">Kaputelefon</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<button id="navbar-toggler" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -93,7 +93,7 @@ code {
 <!-- Begin page content -->
 <main role="main" class="container">
 
-	<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+	<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5; width: 200px;">
 		<div id="liveToast" class="toast align-items-center hide" role="alert" aria-live="assertive" aria-atomic="true">
 			<div class="toast-header text-white bg-primary">
 				<strong class="me-auto">Info</strong>
@@ -109,18 +109,18 @@ code {
 			<div class="card-body">
 				<div class="mb-3">
 					<button type="button" class="btn btn-primary" onclick="restart()">Újraindítás</button>
+				</div>
+				<div class="mb-3">
 					<button type="button" class="btn btn-primary" onclick="factoryReset()">Gyári beállítások visszaállítása</button>
 				</div>
-				<div class="card">
-					<div class="card-body">
-						<form action="/api/ota">
-							<div class="mb-3">
-								<label for="otaTextArea">OTA</label>
-								<textarea name="otaTextArea" class="form-control" id="otaTextArea"></textarea>
-							</div>
-							<button type="submit" class="btn btn-primary">Mentés</button>
-						</form>
-					</div>
+				<div class="mb-3">
+					<form action="/api/ota">
+						<div class="mb-3">
+							<label for="otaTextArea">OTA</label>
+							<textarea name="otaTextArea" class="form-control" id="otaTextArea"></textarea>
+						</div>
+						<button type="submit" class="btn btn-primary">Mentés</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -148,21 +148,17 @@ code {
 				</h2>
 				<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 					<div class="accordion-body">
-						<div class="card">
-							<div class="card-body">
-								<form action="/api/wifi_settings">
-									<div class="mb-3">
-										<label for="ssidText">SSID</label>
-										<input name="ssid" type="text" class="form-control" id="ssidText" placeholder="SSID">
-									</div>
-									<div class="mb-3">
-										<label for="passwordText">Jelszó</label>
-										<input name="password" type="text" class="form-control" id="passwordText" placeholder="Jelszó">
-									</div>
-									<button type="submit" class="btn btn-primary">Mentés</button>
-								</form>
+						<form action="/api/wifi_settings">
+							<div class="mb-3">
+								<label for="ssidText">SSID</label>
+								<input name="ssid" type="text" class="form-control" id="ssidText" placeholder="SSID">
 							</div>
-						</div>
+							<div class="mb-3">
+								<label for="passwordText">Jelszó</label>
+								<input name="password" type="text" class="form-control" id="passwordText" placeholder="Jelszó">
+							</div>
+							<button type="submit" class="btn btn-primary">Mentés</button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -174,19 +170,14 @@ code {
 				</h2>
 				<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 					<div class="accordion-body">
-						<div class="card">
-							<div class="card-body">
-								<form action="/file/accounts">
-									<div class="mb-3">
-										<label for="accountsTextArea">SIP beállítások</label>
-										<textarea name="accountsTextArea" class="form-control" id="accountsTextArea"></textarea>
-									</div>
-									<button type="submit" class="btn btn-primary">Mentés</button>
-								</form>
+						<form action="/file/accounts">
+							<div class="mb-3">
+								<label for="accountsTextArea">SIP beállítások</label>
+								<textarea name="accountsTextArea" class="form-control" id="accountsTextArea"></textarea>
 							</div>
-						</div>
+							<button type="submit" class="btn btn-primary">Mentés</button>
+						</form>
 					</div>
-				</div>
 				</div>
 			</div>
 			<div class="accordion-item">
@@ -197,47 +188,44 @@ code {
 				</h2>
 				<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
 					<div class="accordion-body">
-						<div class="card">
-							<div class="card-body">
-								<form action="/api/icom">
-									<div class="mb-3">
-										<label for="gvolText">Csengetés hangerő</label>
-										<input name="gvol" type="text" class="form-control" id="gvolText" placeholder="Csengetés hangerő">
-									</div>
-									<div class="mb-3">
-										<label for="rvolText">Ajtócsengő hangerő</label>
-										<input name="rvol" type="text" class="form-control" id="rvolText" placeholder="Ajtócsengő hangerő">
-									</div>
-									<div class="mb-3">
-										<label for="cvolText">Beep hangerő</label>
-										<input name="cvol" type="text" class="form-control" id="cvolText" placeholder="Beep hangerő">
-									</div>
-									<div class="mb-3">
-										<label for="hvolText">Fejhallgató hangerő</label>
-										<input name="hvol" type="text" class="form-control" id="hvolText" placeholder="Fejhallgató hangerő">
-									</div>
-									<div class="mb-3">
-										<label for="mvolText">Mikrofon hangerő</label>
-										<input name="mvol" type="text" class="form-control" id="mvolText" placeholder="Mikrofon hangerő">
-									</div>
-									<div class="mb-3">
-										<label for="typeSelect">Kaputelefon típusa</label>
-										<select name="type" class="form-select" id="typeSelect">
-											<option selected>Válasszon...</option>
-											<option value="codefon">Codefon</option>
-											<option value="mkt">MKT</option>
-											<option value="laskome">Laskomex</option>
-										</select>
-									</div>
-									<div class="mb-3">
-										<label for="codeText">Kapukód</label>
-										<input name="code" type="text" class="form-control" id="codeText" placeholder="Kapukód">
-									</div>
-									<button type="submit" class="btn btn-primary">Mentés</button>
-								</form>
+						<form action="/api/icom">
+							<div class="mb-3">
+								<label for="gvolText">Csengetés hangerő</label>
+								<input name="gvol" type="text" class="form-control" id="gvolText" placeholder="Csengetés hangerő">
 							</div>
-						</div>
+							<div class="mb-3">
+								<label for="rvolText">Ajtócsengő hangerő</label>
+								<input name="rvol" type="text" class="form-control" id="rvolText" placeholder="Ajtócsengő hangerő">
+							</div>
+							<div class="mb-3">
+								<label for="cvolText">Beep hangerő</label>
+								<input name="cvol" type="text" class="form-control" id="cvolText" placeholder="Beep hangerő">
+							</div>
+							<div class="mb-3">
+								<label for="hvolText">Fejhallgató hangerő</label>
+								<input name="hvol" type="text" class="form-control" id="hvolText" placeholder="Fejhallgató hangerő">
+							</div>
+							<div class="mb-3">
+								<label for="mvolText">Mikrofon hangerő</label>
+								<input name="mvol" type="text" class="form-control" id="mvolText" placeholder="Mikrofon hangerő">
+							</div>
+							<div class="mb-3">
+								<label for="typeSelect">Kaputelefon típusa</label>
+								<select name="type" class="form-select" id="typeSelect">
+									<option selected>Válasszon...</option>
+									<option value="codefon">Codefon</option>
+									<option value="mkt">MKT</option>
+									<option value="laskome">Laskomex</option>
+								</select>
+							</div>
+							<div class="mb-3">
+								<label for="codeText">Kapukód</label>
+								<input name="code" type="text" class="form-control" id="codeText" placeholder="Kapukód">
+							</div>
+							<button type="submit" class="btn btn-primary">Mentés</button>
+						</form>
 					</div>
+
 				</div>
 			</div>
 		</div>
@@ -291,13 +279,17 @@ $( document ).ready(function () {
     	loadForm(form);
     	form.addEventListener('submit', saveForm);
     });
-    url = localStorage.getItem("urlText");
+    let urlText = localStorage.getItem("urlText");
+    if (urlText != null) {
+    	url = urlText;
+    }
     $('#urlText').val(url);
+    bsCollapse = new bootstrap.Collapse(document.getElementById('navbarSupportedContent'));
+    toast = new bootstrap.Toast(document.getElementById('liveToast'));
 });
 
 function showAlert(msg) {
 	$('#alertText').html(msg);
-	var toast = new bootstrap.Toast(document.getElementById('liveToast'));
 	toast.show();
 }
 
@@ -351,18 +343,14 @@ function menu(l) {
     $('.page').each(function() {
         e = $( this );
         if(page == '#' + e.attr('id')) {
-            toggleNavbar();
+        	if ($("#navbar-toggler").is(":visible")) {
+            	bsCollapse.hide();
+            }
             e.removeClass( 'hidden' );
         } else {
             e.addClass( 'hidden' );
         }
     });
-}
-
-function toggleNavbar() {
-	const menuToggle = document.getElementById('navbarSupportedContent');
-	const bsCollapse = new bootstrap.Collapse(menuToggle);
-	bsCollapse.toggle();
 }
 
 function restart() {
