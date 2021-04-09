@@ -8,7 +8,7 @@
 	<title>Kaputelefon</title>
 
 	<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sticky-footer-navbar/">
-
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
@@ -56,7 +56,7 @@ code {
 }
 
 #urlText {
-    width: 300;
+    width: 500px;
 }
 	</style>
 </head>
@@ -67,10 +67,10 @@ code {
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">Kaputelefon</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse" id="navbarColor02">
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item">
 						<a class="nav-link" href="#settings" onclick="menu(this)">Beállítások</a>
@@ -83,7 +83,7 @@ code {
 					</li>
 				</ul>
 				<div class="d-flex">
-					<input class="form-control" placeholder="Url" id="urlText" value="http://localhost:8080">
+					<input class="form-control" placeholder="Url" id="urlText">
 				</div>
 			</div>
 		</div>
@@ -105,12 +105,39 @@ code {
 	</div>
 
 	<div class="page hidden" id="admin">
-		<div class="mb-3">
-			<button type="button" class="btn btn-primary" onclick="restart()">Újraindítás</button>
-			<button type="button" class="btn btn-primary" onclick="factoryReset()">Gyári beállítások visszaállítása</button>
+		<div class="card">
+			<div class="card-body">
+				<div class="mb-3">
+					<button type="button" class="btn btn-primary" onclick="restart()">Újraindítás</button>
+					<button type="button" class="btn btn-primary" onclick="factoryReset()">Gyári beállítások visszaállítása</button>
+				</div>
+				<div class="card">
+					<div class="card-body">
+						<form action="/api/ota">
+							<div class="mb-3">
+								<label for="otaTextArea">OTA</label>
+								<textarea name="otaTextArea" class="form-control" id="otaTextArea"></textarea>
+							</div>
+							<button type="submit" class="btn btn-primary">Mentés</button>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<div class="page hidden" id="phonebook"></div>
+	<div class="page hidden" id="phonebook">
+		<div class="card">
+			<div class="card-body">
+				<form action="/file/contacts">
+					<div class="mb-3">
+						<label for="contactsTextArea">Kapcsolatok</label>
+						<textarea name="contactsTextArea" class="form-control" id="contactsTextArea"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary">Mentés</button>
+				</form>
+			</div>
+		</div>
+	</div>
 	<div class="page hidden" id="settings">
 		<div class="accordion" id="accordionExample">
 			<div class="accordion-item">
@@ -146,7 +173,19 @@ code {
 					</button>
 				</h2>
 				<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-					<div class="accordion-body">To be continued...</div>
+					<div class="accordion-body">
+						<div class="card">
+							<div class="card-body">
+								<form action="/file/accounts">
+									<div class="mb-3">
+										<label for="accountsTextArea">SIP beállítások</label>
+										<textarea name="accountsTextArea" class="form-control" id="accountsTextArea"></textarea>
+									</div>
+									<button type="submit" class="btn btn-primary">Mentés</button>
+								</form>
+							</div>
+						</div>
+					</div>
 				</div>
 				</div>
 			</div>
@@ -174,12 +213,20 @@ code {
 										<input name="cvol" type="text" class="form-control" id="cvolText" placeholder="Beep hangerő">
 									</div>
 									<div class="mb-3">
+										<label for="hvolText">Fejhallgató hangerő</label>
+										<input name="hvol" type="text" class="form-control" id="hvolText" placeholder="Fejhallgató hangerő">
+									</div>
+									<div class="mb-3">
+										<label for="mvolText">Mikrofon hangerő</label>
+										<input name="mvol" type="text" class="form-control" id="mvolText" placeholder="Mikrofon hangerő">
+									</div>
+									<div class="mb-3">
 										<label for="typeSelect">Kaputelefon típusa</label>
 										<select name="type" class="form-select" id="typeSelect">
 											<option selected>Válasszon...</option>
 											<option value="codefon">Codefon</option>
 											<option value="mkt">MKT</option>
-											<option value="laskomex">Laskomex</option>
+											<option value="laskome">Laskomex</option>
 										</select>
 									</div>
 									<div class="mb-3">
@@ -197,32 +244,54 @@ code {
 	</div>
 </main>
 
-<footer class="footer">
-	<div class="container">
-		<span class="text-muted">Motyo design :)</span>
-	</div>
-</footer>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script
-		src="https://code.jquery.com/jquery-3.6.0.min.js"
-		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-		crossorigin="anonymous"></script>
 <script>
-url = document.location.href;
+function jsonToForm(f, data) {
+  var options = {
+    data: data || null
+  };
+
+  if (options.data != null) {
+    for (k in options.data) {
+      var v = options.data[k];
+      var elements = $('[name^="' + k + '"]', f);
+
+      $(elements).each(function (index, element) {
+        if (Array.isArray(v)) {
+          v.forEach(function (val) {
+            $(element).is("select")
+              ? $(element)
+                  .find("[value='" + val + "']")
+                  .prop("selected", true)
+              : $(element).val() == val
+              ? $(element).prop("checked", true)
+              : "";
+          });
+        } else if ($(element).is(":checkbox") || $(element).is(":radio")) {
+          // checkbox group or radio group
+          $(element).val() == v ? $(element).prop("checked", true) : "";
+        } else {
+          $('[name="' + k + '"]', f).val(v);
+        }
+      });
+    };
+  }
+};
+</script>
+
+<script>
+var url = 'http://kaputelefon.no-ip.hu';
 
 $( document ).ready(function () {
     $('#urlText').on('change', function() {
         url = $( this ).val();
+        localStorage.setItem("urlText", url);
     });
 
-    $('form').each(function() {
-    	loadForm($(this));
-    	$(this).submit(saveForm);
+    document.querySelectorAll('form').forEach(function(form) {
+    	loadForm(form);
+    	form.addEventListener('submit', saveForm);
     });
-
+    url = localStorage.getItem("urlText");
     $('#urlText').val(url);
 });
 
@@ -233,13 +302,18 @@ function showAlert(msg) {
 }
 
 function loadForm(form) {
-	action = form.attr('action');
-	if (action != null) {
-	    $.ajax({
+	let action = form.getAttribute('action');
+	if (action != null && action != '/api/ota') {
+		let isFile = action.startsWith('/file/');
+		$.ajax({
 			url: url + action,
 			type: 'GET',
 			success: function(data) {
-				form.jsonToForm(data);
+				if (isFile) {
+					form.getElementsByTagName('textarea')[0].value = data;
+				} else {
+					jsonToForm(form, data);
+				}
 			},
 			error: function(result) {
 				showAlert('error');
@@ -250,14 +324,18 @@ function loadForm(form) {
 
 function saveForm(event) {
 	event.preventDefault();
-	form = event.target;
-	action = form.getAttribute('action');
+	let form = event.target;
+	let action = form.getAttribute('action');
 	if (action != null) {
+		let isFile = action.startsWith('/file/');
 	    $.ajax({
 			url: url + action,
 			type: 'PUT',
 			contentType: "application/json",
-			data: JSON.stringify(Object.fromEntries(new FormData(event.target).entries())),
+			data: isFile ?
+				form.getElementsByTagName('textarea')[0].value
+				:
+				JSON.stringify(Object.fromEntries(new FormData(event.target).entries())),
 			success: function(result) {
 				showAlert(result);
 			},
@@ -272,12 +350,19 @@ function menu(l) {
     page = l.getAttribute('href');
     $('.page').each(function() {
         e = $( this );
-        if(page != '#' + e.attr('id')) {
-            e.addClass( 'hidden' );
-        } else {
+        if(page == '#' + e.attr('id')) {
+            toggleNavbar();
             e.removeClass( 'hidden' );
+        } else {
+            e.addClass( 'hidden' );
         }
     });
+}
+
+function toggleNavbar() {
+	const menuToggle = document.getElementById('navbarSupportedContent');
+	const bsCollapse = new bootstrap.Collapse(menuToggle);
+	bsCollapse.toggle();
 }
 
 function restart() {
@@ -305,11 +390,6 @@ function factoryReset() {
         }
     });
 }
-
-</script>
-
-<script>
-$.fn.jsonToForm=function(a,c){var l=this,n={data:a||null,callbacks:c};null!=n.data&&$.each(n.data,function(a,c){var e=$('[name^="'+a+'"]',l);null!=n.callbacks&&n.callbacks.hasOwnProperty(a)?n.callbacks[a](c):$(e).each(function(n,e){Array.isArray(c)?c.forEach(function(a){$(e).is("select")?$(e).find("[value='"+a+"']").prop("selected",!0):$(e).val()==a&&$(e).prop("checked",!0)}):$(e).is(":checkbox")||$(e).is(":radio")?$(e).val()==c&&$(e).prop("checked",!0):$('[name="'+a+'"]',l).val(c)})})};
 </script>
 </body>
 </html>
