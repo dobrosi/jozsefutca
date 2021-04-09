@@ -113,15 +113,21 @@ code {
 				<div class="mb-3">
 					<button type="button" class="btn btn-primary" onclick="factoryReset()">Gyári beállítások visszaállítása</button>
 				</div>
-				<div class="mb-3">
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-body">
+				<pre id="codeBlock"></pre>
+				<button type="button" class="btn btn-primary" onclick="showSettings()">Összes beállítás mutatása</button>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-body">
 					<form action="/api/ota">
-						<div class="mb-3">
-							<label for="otaTextArea">OTA</label>
-							<textarea name="otaTextArea" class="form-control" id="otaTextArea"></textarea>
-						</div>
-						<button type="submit" class="btn btn-primary">Mentés</button>
+						<input id="input-b2" name="input-b2" type="file" class="file" data-show-preview="false">
+						<button type="submit" class="btn btn-primary">Feltöltés</button>
 					</form>
-				</div>
+
 			</div>
 		</div>
 	</div>
@@ -215,7 +221,7 @@ code {
 									<option selected>Válasszon...</option>
 									<option value="codefon">Codefon</option>
 									<option value="mkt">MKT</option>
-									<option value="laskome">Laskomex</option>
+									<option value="laskomex">Laskomex</option>
 								</select>
 							</div>
 							<div class="mb-3">
@@ -351,6 +357,14 @@ function menu(l) {
             e.addClass( 'hidden' );
         }
     });
+}
+
+function showSettings() {
+    $.getJSON(url + '/settingses/1', function(o) {
+    	delete o.indexPage;
+    	delete o._links;
+		document.getElementById('codeBlock').innerHTML = JSON.stringify(o, null, 4);
+	})
 }
 
 function restart() {
