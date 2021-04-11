@@ -49,7 +49,7 @@ public class ApiController {
 
   @PutMapping("/wifi_settings")
   @Transactional
-  public ResponseEntity<String> saveWifiSetting(@RequestBody WifiSettings wifiSettings) {
+  public ResponseEntity<String> saveWifiSetting(@ModelAttribute WifiSettings wifiSettings) {
     settingsRepository.findFirstByOrderById().setWifiSettings(wifiSettings);
     return ok("Saved");
   }
@@ -61,7 +61,7 @@ public class ApiController {
 
   @PutMapping(value = "/icom")
   @Transactional
-  public ResponseEntity<String> saveIntercom(@RequestBody Intercom intercom) {
+  public ResponseEntity<String> saveIntercom(@ModelAttribute Intercom intercom) {
     settingsRepository.findFirstByOrderById().setIntercom(intercom);
     return ok("Saved");
   }
