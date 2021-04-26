@@ -238,9 +238,12 @@
 					<input id="advancedSwitcher" name="advancedSwitcher" type="checkbox" onchange="switchAdvanced(this.checked)">
 				</div>
 				<div class="mb-3">
+					<button type="button" class="btn btn-primary" onclick="testCall()">Próba hívás</button>
 					<div class="btn-group" role="group">
 						<button type="button" class="btn btn-primary" onclick="getVersion()">Verzió</button>
 						<button type="button" class="btn btn-primary" onclick="getMac()">MAC</button>
+					</div>
+					<div class="btn-group" role="group">
 						<button type="button" class="btn btn-primary" onclick="restart()">Újraindítás</button>
 						<button type="button" class="btn btn-primary" onclick="factoryReset()">Gyári beállítások visszaállítása</button>
 					</div>
@@ -497,6 +500,10 @@ function restart() {
 
 function factoryReset() {
     ajax('GET', '/api/factory_reset');
+}
+
+function testCall() {
+    ajax('GET', '/api/testcall');
 }
 </script>
 </body>
