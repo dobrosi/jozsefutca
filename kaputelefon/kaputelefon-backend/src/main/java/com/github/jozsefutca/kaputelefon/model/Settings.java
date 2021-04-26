@@ -29,7 +29,7 @@ public class Settings {
   private String config;
 
   @Lob
-  private String indexPage;
+  private byte[] indexPage;
 
   public Settings() {
     init();
@@ -88,11 +88,11 @@ public class Settings {
     this.config = config;
   }
 
-  public String getIndexPage() {
+  public byte[] getIndexPage() {
     return indexPage;
   }
 
-  public void setIndexPage(String indexPage) {
+  public void setIndexPage(byte[] indexPage) {
     this.indexPage = indexPage;
   }
 }

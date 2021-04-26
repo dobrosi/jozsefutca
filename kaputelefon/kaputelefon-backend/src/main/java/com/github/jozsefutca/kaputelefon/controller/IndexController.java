@@ -2,6 +2,7 @@ package com.github.jozsefutca.kaputelefon.controller;
 
 import com.github.jozsefutca.kaputelefon.repository.SettingsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,15 +20,10 @@ public class IndexController {
   @Autowired private SettingsRepository settingsRepository;
 
   @GetMapping(value = "/")
-  public ResponseEntity<String> loadIndexPage() {
-    return ok(settingsRepository.findFirstByOrderById().getIndexPage());
-  }
-
-  @PutMapping(value = "/")
-  @Transactional
-  public ResponseEntity<String> saveIndexPage(@RequestBody String indexPage) {
-    settingsRepository.findFirstByOrderById().setIndexPage(indexPage);
-    return ok("Saved");
+  public ResponseEntity<byte[]> loadIndexPage() {
+    HttpHeaders responseHeaders = new HttpHeaders();
+    responseHeaders.add("Content-Encoding","gzip");
+    return ok().headers(responseHeaders).body(settingsRepository.findFirstByOrderById().getIndexPage());
   }
 }
 	

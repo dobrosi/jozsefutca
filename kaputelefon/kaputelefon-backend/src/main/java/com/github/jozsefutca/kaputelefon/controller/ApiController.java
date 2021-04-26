@@ -6,7 +6,9 @@ import com.github.jozsefutca.kaputelefon.repository.SettingsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -68,7 +70,7 @@ public class ApiController {
 
   @PutMapping(value = "/ota")
   @Transactional
-  public ResponseEntity<String> ota(@RequestBody String ota) {
+  public ResponseEntity<String> ota(final HttpServletRequest request) {
     return ok("OK ota");
   }
 }
