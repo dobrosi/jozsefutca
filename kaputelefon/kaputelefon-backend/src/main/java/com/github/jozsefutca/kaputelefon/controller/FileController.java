@@ -1,20 +1,15 @@
 package com.github.jozsefutca.kaputelefon.controller;
 
-import static org.springframework.http.ResponseEntity.ok;
+import com.github.jozsefutca.kaputelefon.repository.SettingsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import com.github.jozsefutca.kaputelefon.repository.SettingsRepository;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @CrossOrigin
 @RestController

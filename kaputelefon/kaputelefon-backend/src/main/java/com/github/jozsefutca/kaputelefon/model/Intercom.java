@@ -1,14 +1,11 @@
 package com.github.jozsefutca.kaputelefon.model;
 
-import io.swagger.models.auth.In;
-
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Embeddable
 public class Intercom {
-
   private int gvol;
 
   private int rvol;
@@ -30,12 +27,24 @@ public class Intercom {
     return gvol;
   }
 
+  public void setGvol(int gvol) {
+    this.gvol = gvol;
+  }
+
   public int getRvol() {
     return rvol;
   }
 
+  public void setRvol(int rvol) {
+    this.rvol = rvol;
+  }
+
   public int getCvol() {
     return cvol;
+  }
+
+  public void setCvol(int cvol) {
+    this.cvol = cvol;
   }
 
   public int getMvol() {
@@ -58,7 +67,15 @@ public class Intercom {
     return type;
   }
 
+  public void setType(IntercomType type) {
+    this.type = type;
+  }
+
   public int getCode() {
     return code;
+  }
+
+  public void setCode(int code) {
+    this.code = code;
   }
 }

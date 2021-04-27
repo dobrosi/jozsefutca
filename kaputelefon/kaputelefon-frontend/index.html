@@ -54,10 +54,6 @@
 		#urlText {
 			width: 300px;
 		}
-
-		.kt-advanced {
-			display: none;
-		}
 	</style>
 </head>
 
@@ -235,7 +231,7 @@
 			<div class="card-body">
 				<div class="mb-3">
 					<label for="advancedSwitcher">Haladó</label>
-					<input id="advancedSwitcher" name="advancedSwitcher" type="checkbox" onchange="switchAdvanced(this.checked)">
+					<input id="advancedSwitcher" name="advancedSwitcher" type="checkbox" onchange="switchAdvanced()">
 				</div>
 				<div class="mb-3">
 					<button type="button" class="btn btn-primary" onclick="testCall()">Próba hívás</button>
@@ -308,6 +304,7 @@ function initForms() {
 	});
 	ajax('GET', actionContacts, r => getContacts(document.getElementById('phonebookForm'), r.responseText));
 	ajax('GET', actionAccounts, r => getAccounts(document.getElementById('accountForm'), r.responseText));
+	switchAdvanced();
 }
 
 function initUrlText() {
@@ -478,7 +475,8 @@ function showSettings() {
 	});
 }
 
-function switchAdvanced(v) {
+function switchAdvanced() {
+	let v = document.getElementById('advancedSwitcher').checked;
 	let list = document.querySelectorAll('.kt-advanced');
 	var i;
 	for (i = 0; i < list.length; i++) {

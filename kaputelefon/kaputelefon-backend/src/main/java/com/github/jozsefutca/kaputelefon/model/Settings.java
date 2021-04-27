@@ -1,12 +1,11 @@
 package com.github.jozsefutca.kaputelefon.model;
 
-import java.time.LocalDateTime;
-import javax.persistence.*;
-
-import io.swagger.models.auth.In;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
