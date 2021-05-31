@@ -6,6 +6,7 @@ update at public szerver (github) + version number handling
 
 # Dokumentálás
 Ahogy az IKEA csinalja. Celkozonseg: telefont kezelni tudo, de SIP-hez semmit nem erto emberek
+https://www.overleaf.com/project/6087b99d3619c884e0701cfa
 
 # Tesztelés
 androidon, iphoneon
