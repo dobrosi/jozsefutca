@@ -43,12 +43,12 @@ public class ApiController {
     return ok("OK appversion");
   }
 
-  @GetMapping(value = "/wifi_settings")
+  @GetMapping(value = "/auth")
   public ResponseEntity<WifiSettings> loadWifiSetting() {
     return ok(settingsRepository.findFirstByOrderById().getWifiSettings());
   }
 
-  @PutMapping("/wifi_settings")
+  @PutMapping("/auth")
   @Transactional
   public ResponseEntity<String> saveWifiSetting(@ModelAttribute WifiSettings wifiSettings) {
     settingsRepository.findFirstByOrderById().setWifiSettings(wifiSettings);

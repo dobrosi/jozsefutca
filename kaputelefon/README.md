@@ -6,9 +6,34 @@ update at public szerver (github) + version number handling
 
 # Dokumentálás
 Ahogy az IKEA csinalja. Celkozonseg: telefont kezelni tudo, de SIP-hez semmit nem erto emberek
+https://www.overleaf.com/project/6087b99d3619c884e0701cfa
 
 # Tesztelés
 androidon, iphoneon
+
+# Beüzemelés
+1. Tápot kell neki adni. Szét kell szerelni és a USB micro aljzatba be kell dugni egy micro USB telefontöltőt vagy micro USB kábelt.
+2. Konfigurációs mód: a kapunyitő gombbal lehetséges: úgy, hogy a beszélő a helyén van. Mivel a kapunyito gomb csak úgy nyomható meg, hogy le van véve a beszélő, ezért a hook switchet (amit a bészelő megnyom, amikor a helyen van),
+   a beüzemelőnek kell nyomnia, miközben a kapunyitót nyomkodja. 
+   
+   Lépések: 
+    - beszélőt levenni
+    - hookswitch gombot benyomni és nyomva tartani kézzel
+    - (kapunyito gomb) hosszan nyomni : STA mód
+    - (kapunyito gomb) három gyors egymásutáni rövid benyomása:  AP mód
+
+Kesőbb APSTA mód lesz, nem lesz kettő.
+
+## Infó
+AP vagy STA módban is:
+- kapunyitó gomb rövid nyomás: teszt hívás
+- kapunyito gomb hosszú nyomás: WPS PBS session (ezzel lehet a router-hez egyszerűen WPS használatával kapcsolódni)
+
+A beszélő visszahelyezésével a konfigárciós mód véget ér.
+
+## Known issues
+Mivel az az uzemallapot, amikor 5V (USB) van, viszont vonali feszultseg nincs, nalam nem fordul elo, ezert ez igy kevesse  tesztelt. Igy az van, hogy minden session utan, amikor amugy resetbe/sleepbe mene a kutyu, itt nem megy.
+ -> ilyenkor manualisan ki kell huzni az tapot es vissza kell dugni.
 
 # REST API
 Első draft HTML:
@@ -157,7 +182,7 @@ Content-Encoding: gzip
 ### /api/restart - *GET*
 Ujrainditas.
 
-### /api/wifi_settings - *GET, PUT*
+### /api/auth - *GET, PUT*
 wifi parameterek
 
 ```
