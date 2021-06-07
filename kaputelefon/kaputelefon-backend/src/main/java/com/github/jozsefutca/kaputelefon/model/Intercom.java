@@ -6,7 +6,7 @@ import javax.persistence.Enumerated;
 
 @Embeddable
 public class Intercom {
-  private int gvol;
+  private int ivol;
 
   private int rvol;
 
@@ -23,12 +23,12 @@ public class Intercom {
 
   public Intercom() {}
 
-  public int getGvol() {
-    return gvol;
+  public int getIvol() {
+    return ivol;
   }
 
-  public void setGvol(int gvol) {
-    this.gvol = gvol;
+  public void setIvol(int ivol) {
+    this.ivol = ivol;
   }
 
   public int getRvol() {
