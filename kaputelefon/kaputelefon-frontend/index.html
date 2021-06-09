@@ -84,23 +84,25 @@
 	</div>
 
 	<div class="page hidden" id="settings">
-		<div class="accordion" id="accordionExample">
+		<div class="accordion" id="accordionSettings">
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="headingOne">
 					<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 						Wifi beállítások
 					</button>
 				</h2>
-				<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+				<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionSettings">
 					<div class="accordion-body">
-						<form action="/api/auth">
+						<form action="/api/auth" class="needs-validation" novalidate>
 							<div class="mb-3">
 								<label for="ssidText">SSID</label>
-								<input name="ssid" type="text" class="form-control" id="ssidText" placeholder="SSID">
+								<input name="ssid" type="text" class="form-control" id="ssidText" placeholder="SSID" required>
+								<div class="invalid-feedback">Kötelező értéket megadni.</div>
 							</div>
 							<div class="mb-3">
 								<label for="passwordText">Jelszó</label>
-								<input name="password" type="text" class="form-control" id="passwordText" placeholder="Jelszó">
+								<input name="password" type="text" class="form-control" id="passwordText" placeholder="Jelszó" required>
+								<div class="invalid-feedback">Kötelező értéket megadni.</div>
 							</div>
 							<button type="submit" class="btn btn-primary">Mentés</button>
 						</form>
@@ -113,14 +115,16 @@
 						SIP beállítások
 					</button>
 				</h2>
-				<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+				<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSettings">
 					<div class="accordion-body">
-						<form id=accountForm>
+						<form id="accountForm" class="needs-validation" novalidate>
 							<div class="mb-3">
 								<label for="accountSipTextField">SIP</label>
-								<input name="accountSipTextField" type="text" class="form-control" id="accountSipTextField" placeholder="SIP">
+								<input name="accountSipTextField" type="text" class="form-control" id="accountSipTextField" placeholder="SIP" required>
+								<div class="invalid-feedback">Kötelező értéket megadni.</div>
 								<label for="accountPasswordTextField">Jelszó</label>
-								<input name="accountPasswordTextField" type="text" class="form-control" id="accountPasswordTextField" placeholder="Jelszó">
+								<input name="accountPasswordTextField" type="text" class="form-control" id="accountPasswordTextField" placeholder="Jelszó" required>
+								<div class="invalid-feedback">Kötelező értéket megadni.</div>
 								<label for="accountOutboundTextField">Outbound</label>
 								<input name="accountOutboundTextField" type="text" class="form-control" id="accountOutboundTextField" placeholder="Outbound">
 							</div>
@@ -135,33 +139,37 @@
 						Kapu beállítások
 					</button>
 				</h2>
-				<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+				<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionSettings">
 					<div class="accordion-body">
-						<form action="/api/icom">
+						<form action="/api/icom" class="needs-validation" novalidate>
 							<div class="mb-3 kt-advanced">
 								<label for="ivolText">Csengetés hangerő</label>
-								<input name="ivol" type="number" class="form-control" id="ivolText" placeholder="Csengetés hangerő">
+								<input name="ivol" type="number" class="form-control" id="ivolText" placeholder="Csengetés hangerő" min="0" max="255" required>
+								<div class="invalid-feedback">0-255 tartományban választott értéket kötelező megadni.</div>
 							</div>
 							<div class="mb-3 kt-advanced">
 								<label for="rvolText">Ajtócsengő hangerő</label>
-								<input name="rvol" type="number" class="form-control" id="rvolText" placeholder="Ajtócsengő hangerő">
+								<input name="rvol" type="number" class="form-control" id="rvolText" placeholder="Ajtócsengő hangerő" min="0" max="255" required>
+								<div class="invalid-feedback">0-255 tartományban választott értéket kötelező megadni.</div>
 							</div>
 							<div class="mb-3 kt-advanced">
 								<label for="cvolText">Beep hangerő</label>
-								<input name="cvol" type="number" class="form-control" id="cvolText" placeholder="Beep hangerő">
+								<input name="cvol" type="number" class="form-control" id="cvolText" placeholder="Beep hangerő" min="0" max="255" required>
+								<div class="invalid-feedback">0-255 tartományban választott értéket kötelező megadni.</div>
 							</div>
 							<div class="mb-3 kt-advanced">
 								<label for="hvolText">Fejhallgató hangerő</label>
-								<input name="hvol" type="number" class="form-control" id="hvolText" placeholder="Fejhallgató hangerő">
+								<input name="hvol" type="number" class="form-control" id="hvolText" placeholder="Fejhallgató hangerő" min="0" max="255" required>
+								<div class="invalid-feedback">0-255 tartományban választott értéket kötelező megadni.</div>
 							</div>
 							<div class="mb-3 kt-advanced">
 								<label for="mvolText">Mikrofon hangerő</label>
-								<input name="mvol" type="number" class="form-control" id="mvolText" placeholder="Mikrofon hangerő">
+								<input name="mvol" type="number" class="form-control" id="mvolText" placeholder="Mikrofon hangerő" min="0" max="255" required>
+								<div class="invalid-feedback">0-255 tartományban választott értéket kötelező megadni.</div>
 							</div>
 							<div class="mb-3">
 								<label for="typeSelect">Kaputelefon típusa</label>
-								<select name="type" class="form-select" id="typeSelect">
-									<option selected>Válasszon...</option>
+								<select name="type" class="form-select" id="typeSelect" aria-placeholder="Válasszon..." required>
 									<option value="codefon">Codefon</option>
 									<option value="mkt">MKT</option>
 									<option value="laskomex">Laskomex</option>
@@ -169,7 +177,8 @@
 							</div>
 							<div class="mb-3 kt-advanced">
 								<label for="codeText">Kapukód</label>
-								<input name="code" type="number" class="form-control" id="codeText" placeholder="Kapukód">
+								<input name="code" type="number" class="form-control" id="codeText" placeholder="Kapukód" min="100" max="999" required>
+								<div class="invalid-feedback">100-999 tartományban választott értéket kötelező megadni.</div>
 							</div>
 							<button type="submit" class="btn btn-primary">Mentés</button>
 						</form>
@@ -183,12 +192,14 @@
 	<div class="page hidden" id="phonebook">
 		<div class="card">
 			<div class="card-body">
-				<form id="phonebookForm">
+				<form id="phonebookForm" class="needs-validation" novalidate>
 					<div class="mb-3 kt-contact">
 						<label for="name1TextField">Név</label>
-						<input name="name1TextField" type="text" class="form-control" id="name1TextField" placeholder="Név">
+						<input name="name1TextField" type="text" class="form-control" id="name1TextField" placeholder="Név" required>
+						<div class="invalid-feedback">Kötelező értéket megadni.</div>
 						<label for="sip1TextField">SIP</label>
-						<input name="sip1TextField" type="text" class="form-control" id="sip1TextField" placeholder="SIP">
+						<input name="sip1TextField" type="text" class="form-control" id="sip1TextField" placeholder="SIP" required>
+						<div class="invalid-feedback">Kötelező értéket megadni.</div>
 					</div>
 					<div class="mb-3 kt-contact">
 						<label for="name2TextField">Név</label>
@@ -227,6 +238,40 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="card kt-advanced">
+			<div class="card-body">
+				<div class="accordion" id="accordionAdmin">
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingAdminOne">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdminOne" aria-expanded="true" aria-controls="collapseAdminOne">
+								Log
+							</button>
+						</h2>
+						<div class="card">
+							<div class="card-body">
+								<div id="collapseAdminOne" class="accordion-collapse collapse"  aria-labelledby="headingAdminOne" data-bs-parent="#accordionAdmin">
+									<label for="logsleep">Lekérdezések közötti várakozás ideje másodpercben</label>
+									<select name="logsleep" class="form-select" id="logsleep">
+										<option value="-1">Ne logoljon</option>
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="3">3</option>
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="30">30</option>
+										<option value="60">60</option>
+									</select>
+									<textarea class="form-control" name="logfile" id="logfile" rows="20" readonly></textarea>
+									<button type="button" class="btn btn-primary" onclick="clearLogfile()">Log törlése</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		<div class="card kt-advanced">
 			<div class="card-body">
@@ -237,14 +282,15 @@
 
 		<div class="card kt-advanced">
 			<div class="card-body">
-				<form action="/api/settings">
+				<form action="/api/settings" class="needs-validation" novalidate>
 					<div class="mb-3 kt-advanced">
 						<label for="testmodeText">Test mode</label>
-						<input name="testmode" type="number" class="form-control" id="testmodeText" placeholder="Test mode">
+						<input name="testmode" type="number" class="form-control" id="testmodeText" placeholder="Test mode" readonly>
 					</div>
 					<div class="mb-3 kt-advanced">
 						<label for="ctimText">Timeout</label>
-						<input name="ctim" type="number" class="form-control" id="ctimText" placeholder="Timeout">
+						<input name="ctim" type="number" class="form-control" id="ctimText" placeholder="Timeout" min="0" max="255" required>
+						<div class="invalid-feedback">Kötelező értéket megadni.</div>
 					</div>
 					<button type="submit" class="btn btn-primary">Mentés</button>
 				</form>
@@ -253,19 +299,22 @@
 
 		<div class="card kt-advanced">
 			<div class="card-body">
-					<form id="otaFileForm">
+					<form id="otaFileForm" class="needs-validation" novalidate>
 						<label for="indexFile">Firmware fájl</label>
-						<input id="otaFile" name="otaFile" type="file" class="file" data-show-preview="false">
+						<input id="otaFile" name="otaFile" type="file" class="file" data-show-preview="false" required>
+						<div class="invalid-feedback">Kötelező fájlt kiválasztani.</div>
 						<button type="submit" class="btn btn-primary">Feltöltés</button>
 					</form>
 			</div>
 		</div>
+
 		<div class="card kt-advanced">
 			<div class="card-body">
-				<form id="indexFileForm">
+				<form id="indexFileForm" class="needs-validation" novalidate>
 					<div class="mb-3">
 						<label for="indexFile">Index fájl</label>
-						<input id="indexFile" name="indexFile" type="file" class="file" data-show-preview="false">
+						<input id="indexFile" name="indexFile" type="file" class="file" data-show-preview="false" required>
+						<div class="invalid-feedback">Kötelező fájlt kiválasztani.</div>
 						<button type="submit" class="btn btn-primary">Feltöltés</button>
 					</div>
 				</form>
@@ -282,6 +331,8 @@ var configuration = {
 
 var actionContacts = '/file/contacts';
 var actionAccounts = '/file/accounts';
+var logfile;
+var logTimeout;
 
 document.addEventListener("DOMContentLoaded", function(event) {
 	try {
@@ -297,22 +348,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 function testClientCall() {
-	//set parameters (alternatively these can be also preset in your html)
-	webphone_api.setparameter('serveraddress', 'sip.antisip.com'); // Replace the word in uppercase with your SIP server IP or domain name (add also the :port number if not using the standard UDP 5060)
-	webphone_api.setparameter('username', 'dobrosi'); // Replace the word in uppercase with a valid SIP extension username
-	webphone_api.setparameter('password', 'Pender123.'); // Replace the word in uppercase with the password for the above user
-	//see the “Parameters” section in the documentation for more options
-
-	//start the webphone (optional but recommended)
-	webphone_api.start();
-	//make a call (usually initiated by user action, such as click on a click to call button)
-	number = 'sip:dobrosi2@sip.antisip.com';
-	message = 'Hello!!!';
-	webphone_api.call(number);
-	//hangup
-	webphone_api.hangup();
-	//send instant message
-	webphone_api.sendchat(number, message);
+	alert("Comming soon.");
 }
 
 function initGui() {
@@ -322,12 +358,21 @@ function initGui() {
 	initUrlText();
 	initAdvancedMode();
 	initForms();
+	initLogfile();
 }
 
 function initForms() {
 	document.querySelectorAll('form').forEach(function(form) {
 		loadForm(form);
-		form.addEventListener('submit', saveForm);
+		form.addEventListener('submit', function(event) {
+			if (!form.checkValidity()) {
+				event.preventDefault()
+				event.stopPropagation()
+			} else {
+				saveForm(event);
+			}
+			form.classList.add('was-validated')
+		});
 	});
 	ajax('GET', actionContacts, r => getContacts(document.getElementById('phonebookForm'), r.responseText));
 	ajax('GET', actionAccounts, r => getAccounts(document.getElementById('accountForm'), r.responseText));
@@ -352,6 +397,14 @@ function initAdvancedMode() {
 	advancedCheckbox.checked = configuration.advancedMode;
 	advancedCheckbox.addEventListener('change', function() {
         switchAdvanced();
+    });
+}
+
+function initLogfile() {
+	logfile = document.querySelector("#logfile");
+	let logsleep = document.querySelector('#logsleep');
+	logsleep.addEventListener('change', function() {
+        setLogTimeout(this.value);
     });
 }
 
@@ -527,6 +580,32 @@ function switchAdvanced() {
 	for (i = 0; i < list.length; i++) {
 		list[i].style.display = v ? 'block' : 'none';
 	}
+}
+
+function setLogTimeout(v) {
+	if (logTimeout != null) {
+		clearInterval(logTimeout);
+	}
+	if (v >= 0) {
+		logTimeout = setTimeout(function() {
+			ajax('GET', '/api/logfile', function(response) {
+				let scrolling = ((logfile.scrollTop + logfile.offsetHeight) > logfile.scrollHeight);
+				let selectionStart = logfile.selectionStart;
+				let selectionEnd = logfile.selectionEnd;
+				logfile.value += response.responseText;
+				if (scrolling) {
+					logfile.scrollTop = logfile.scrollHeight;
+				}
+				logfile.selectionStart = selectionStart;
+				logfile.selectionEnd = selectionEnd;
+				setLogTimeout(v);
+			});
+		}, v * 1000);
+	}
+}
+
+function clearLogfile() {
+	logfile.value = '';
 }
 
 function getVersion() {
