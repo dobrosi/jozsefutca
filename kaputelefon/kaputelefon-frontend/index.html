@@ -11,24 +11,24 @@
 
 	<style>
 		body > .container {
-		padding: 60px 15px 0;
-		}
-
-		.footer > .container {
-		padding-right: 15px;
-		padding-left: 15px;
-		}
-
-		code {
-		font-size: 80%;
+		padding: 60px 0px 0;
 		}
 
 		.hidden {
 			display: none;
 		}
 
-		#urlText {
-			width: 300px;
+		input[type=number], input.small, select.small {
+			width: 200px;
+		}
+
+		#not_connected {
+			background-color: #dc3545!important;
+			color: white;
+			font-weight: bold;
+			padding: 0px 10px 0px 10px;
+			border-radius: 0.25rem;
+			display: none;
 		}
 	</style>
 </head>
@@ -39,6 +39,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">Kaputelefon</a>
+			<div id="not_connected">Nincs kapcsolat</div>
 			<button id="navbar-toggler" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -61,7 +62,6 @@
 
 <!-- Begin page content -->
 <main role="main" class="container">
-
 	<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5; width: 200px;">
 		<div id="toastInfo" class="toast align-items-center hide" role="alert" aria-live="assertive" aria-atomic="true">
 			<div class="toast-header text-white bg-success">
@@ -122,9 +122,13 @@
 								<label for="accountSipTextField">SIP</label>
 								<input name="accountSipTextField" type="text" class="form-control" id="accountSipTextField" placeholder="SIP" required>
 								<div class="invalid-feedback">Kötelező értéket megadni.</div>
+							</div>
+							<div class="mb-3">
 								<label for="accountPasswordTextField">Jelszó</label>
 								<input name="accountPasswordTextField" type="text" class="form-control" id="accountPasswordTextField" placeholder="Jelszó" required>
 								<div class="invalid-feedback">Kötelező értéket megadni.</div>
+							</div>
+							<div class="mb-3">
 								<label for="accountOutboundTextField">Outbound</label>
 								<input name="accountOutboundTextField" type="text" class="form-control" id="accountOutboundTextField" placeholder="Outbound">
 							</div>
@@ -162,14 +166,16 @@
 								<input name="hvol" type="number" class="form-control" id="hvolText" placeholder="Fejhallgató hangerő" min="0" max="255" required>
 								<div class="invalid-feedback">0-255 tartományban választott értéket kötelező megadni.</div>
 							</div>
+							<!--
 							<div class="mb-3 kt-advanced">
 								<label for="mvolText">Mikrofon hangerő</label>
 								<input name="mvol" type="number" class="form-control" id="mvolText" placeholder="Mikrofon hangerő" min="0" max="255" required>
 								<div class="invalid-feedback">0-255 tartományban választott értéket kötelező megadni.</div>
 							</div>
+							-->
 							<div class="mb-3">
 								<label for="typeSelect">Kaputelefon típusa</label>
-								<select name="type" class="form-select" id="typeSelect" aria-placeholder="Válasszon..." required>
+								<select name="type" class="form-select small" id="typeSelect" aria-placeholder="Válasszon..." required>
 									<option value="codefon">Codefon</option>
 									<option value="mkt">MKT</option>
 									<option value="laskomex">Laskomex</option>
@@ -251,20 +257,25 @@
 						<div class="card">
 							<div class="card-body">
 								<div id="collapseAdminOne" class="accordion-collapse collapse"  aria-labelledby="headingAdminOne" data-bs-parent="#accordionAdmin">
-									<label for="logsleep">Lekérdezések közötti várakozás ideje másodpercben</label>
-									<select name="logsleep" class="form-select" id="logsleep">
-										<option value="-1">Ne logoljon</option>
-										<option value="0">0</option>
-										<option value="1">1</option>
-										<option value="3">3</option>
-										<option value="5">5</option>
-										<option value="10">10</option>
-										<option value="15">15</option>
-										<option value="30">30</option>
-										<option value="60">60</option>
-									</select>
-									<textarea class="form-control" name="logfile" id="logfile" rows="20" readonly></textarea>
+									<div class="mb-3">
+										<label for="logsleep">Lekérdezések közötti várakozás ideje másodpercben</label>
+										<select name="logsleep" class="form-select small" id="logsleep">
+											<option value="-1">Ne logoljon</option>
+											<option value="0">0 sec</option>
+											<option value="1">1 sec</option>
+											<option value="3">3 sec</option>
+											<option value="5">5 sec</option>
+											<option value="10">10 sec</option>
+											<option value="15">15 sec</option>
+											<option value="30">30 sec</option>
+											<option value="60">1 min</option>
+										</select>
+									</div>
+									<div class="mb-3">
+										<textarea class="form-control" name="logfile" id="logfile" rows="20" readonly></textarea>
+									</div>
 									<button type="button" class="btn btn-primary" onclick="clearLogfile()">Log törlése</button>
+									
 								</div>
 							</div>
 						</div>
@@ -283,11 +294,11 @@
 		<div class="card kt-advanced">
 			<div class="card-body">
 				<form action="/api/settings" class="needs-validation" novalidate>
-					<div class="mb-3 kt-advanced">
+					<div class="mb-3">
 						<label for="testmodeText">Test mode</label>
 						<input name="testmode" type="number" class="form-control" id="testmodeText" placeholder="Test mode" readonly>
 					</div>
-					<div class="mb-3 kt-advanced">
+					<div class="mb-3">
 						<label for="ctimText">Timeout</label>
 						<input name="ctim" type="number" class="form-control" id="ctimText" placeholder="Timeout" min="0" max="255" required>
 						<div class="invalid-feedback">Kötelező értéket megadni.</div>
@@ -300,10 +311,15 @@
 		<div class="card kt-advanced">
 			<div class="card-body">
 					<form id="otaFileForm" class="needs-validation" novalidate>
-						<label for="indexFile">Firmware fájl</label>
-						<input id="otaFile" name="otaFile" type="file" class="file" data-show-preview="false" required>
-						<div class="invalid-feedback">Kötelező fájlt kiválasztani.</div>
-						<button type="submit" class="btn btn-primary">Feltöltés</button>
+						<div class="mb-3">
+							<button type="button" class="btn btn-primary" onclick="checkUpdate()">Automatikus firmware frissítés</button>
+						</div>
+						<div class="mb-3">
+							<label for="indexFile">Firmware fájl</label>
+							<input id="otaFile" name="otaFile" type="file" class="file" data-show-preview="false" required>
+							<div class="invalid-feedback">Kötelező fájlt kiválasztani.</div>
+							<button type="submit" class="btn btn-primary">Feltöltés</button>
+						</div>
 					</form>
 			</div>
 		</div>
@@ -333,6 +349,8 @@ var actionContacts = '/file/contacts';
 var actionAccounts = '/file/accounts';
 var logfile;
 var logTimeout;
+var connected;
+var not_connected;
 
 document.addEventListener("DOMContentLoaded", function(event) {
 	try {
@@ -346,15 +364,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	initGui();
 });
 
-
-function testClientCall() {
-	alert("Comming soon.");
-}
-
 function initGui() {
     bsCollapse = new bootstrap.Collapse(document.getElementById('navbarSupportedContent'));
     toastInfo = new bootstrap.Toast(document.getElementById('toastInfo'));
 	toastError = new bootstrap.Toast(document.getElementById('toastError'));
+	not_connected = document.querySelector('#not_connected');
 	initUrlText();
 	initAdvancedMode();
 	initForms();
@@ -363,7 +377,6 @@ function initGui() {
 
 function initForms() {
 	document.querySelectorAll('form').forEach(function(form) {
-		loadForm(form);
 		form.addEventListener('submit', function(event) {
 			if (!form.checkValidity()) {
 				event.preventDefault()
@@ -374,9 +387,25 @@ function initForms() {
 			form.classList.add('was-validated')
 		});
 	});
+	loadFormsData();
+	switchAdvanced();
+}
+
+function loadFormsData() {
+	document.querySelectorAll('form').forEach((form) => loadFormData(form));
 	ajax('GET', actionContacts, r => getContacts(document.getElementById('phonebookForm'), r.responseText));
 	ajax('GET', actionAccounts, r => getAccounts(document.getElementById('accountForm'), r.responseText));
-	switchAdvanced();
+}
+
+function loadFormData(form) {
+	let action = form.getAttribute('action');
+	if (action != null) {
+		ajax('GET', action, function(response) {
+			if(response.responseText != '') {
+				jsonToForm(form, JSON.parse(response.responseText.replace(',}', '}')));
+			}
+		});
+	}
 }
 
 function saveConfiguration() {
@@ -410,7 +439,7 @@ function initLogfile() {
 
 function jsonToForm(f, data) {
 	for(var prop in data){
-		let field = f.querySelector('*[name='+prop+']');
+		let field = f.querySelector('*[name=' + prop + ']');
 		if (field != null) {
 			field.value = data[prop];
 		}
@@ -431,34 +460,39 @@ function ajax(protocol, action, success, data) {
 	let xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4) {
+			showConnected(this.status);
 			if (this.status == 200) {
+				not_connected.style.display = 'none';
 				if (success != null) {
 					success(this);
 				} else {
-					showInfo(this.responseText === "" ? "Done" : this.responseText);
+					showInfo(this.responseText === "" ? "Kész" : this.responseText);
 				}
 			} else {
 				showError(this.status + ": " + this.statusText);
 			}
 		}
 	};
-	xhttp.open(protocol, createUrl(action), true);
+	action = action.startsWith('http') ? action : createUrl(action);
+	xhttp.open(protocol, action, true);
+	xhttp.overrideMimeType('text/json');
 	xhttp.send(data);
+}
+
+function showConnected(status) {
+	if (status == 0) {
+		connected = false;
+	} else {
+		if (!connected) {
+			loadFormsData();
+		}
+		connected = true;
+	}
+	not_connected.style.display = connected ? 'block' : 'none';
 }
 
 function createUrl(action) {
 	return (configuration.url + action).replace(/([^:]\/)\/+/g, "$1");
-}
-
-function loadForm(form) {
-	let action = form.getAttribute('action');
-	if (action != null) {
-		ajax('GET', action, function(response) {
-			if(response.responseText != '') {
-				jsonToForm(form, JSON.parse(response.responseText.replace(',}', '}')));
-			}
-		});
-	}
 }
 
 function saveForm(event) {
@@ -582,30 +616,41 @@ function switchAdvanced() {
 	}
 }
 
-function setLogTimeout(v) {
+function setLogTimeout(timeout) {
 	if (logTimeout != null) {
 		clearInterval(logTimeout);
 	}
-	if (v >= 0) {
-		logTimeout = setTimeout(function() {
-			ajax('GET', '/api/logfile', function(response) {
-				let scrolling = ((logfile.scrollTop + logfile.offsetHeight) > logfile.scrollHeight);
-				let selectionStart = logfile.selectionStart;
-				let selectionEnd = logfile.selectionEnd;
-				logfile.value += response.responseText;
-				if (scrolling) {
-					logfile.scrollTop = logfile.scrollHeight;
-				}
-				logfile.selectionStart = selectionStart;
-				logfile.selectionEnd = selectionEnd;
-				setLogTimeout(v);
-			});
-		}, v * 1000);
+	if (timeout >= 0) {
+		receiveLogfile(timeout);
 	}
+}
+
+function receiveLogfile(timeout) {
+	ajax('GET', '/api/logfile', (response) => {
+		let scrolling = ((logfile.scrollTop + logfile.offsetHeight) > logfile.scrollHeight);
+		let selectionStart = logfile.selectionStart;
+		let selectionEnd = logfile.selectionEnd;
+		logfile.value += response.responseText;
+		if (scrolling) {
+			logfile.scrollTop = logfile.scrollHeight;
+		}
+		logfile.selectionStart = selectionStart;
+		logfile.selectionEnd = selectionEnd;
+		logTimeout = setTimeout(() => receiveLogfile(timeout), timeout * 1000 + 100);
+	});
 }
 
 function clearLogfile() {
 	logfile.value = '';
+}
+
+function checkUpdate() {
+	ajax('GET', 'https://api.github.com/repos/dobrosi/jozsefutca/releases/latest', 
+		response => alert(JSON.parse(response.responseText).assets[0].name));
+}
+
+function testClientCall() {
+	alert("Comming soon.");
 }
 
 function getVersion() {
