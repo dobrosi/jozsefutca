@@ -1,4 +1,4 @@
 #!/bin/bash 
 . conf.sh
 
-curl $KAPUTELEFON_URL/mac
+curl $KAPUTELEFON_URL/api/mac
