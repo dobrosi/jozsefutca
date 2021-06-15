@@ -1,5 +1,5 @@
 before_script:
-          - cd kaputelefon-frontend
+          - cd kaputelefon/kaputelefon-frontend
           - npm install -g gulp-cli
           - npm i gulp-inline-source 
 script: gulp inlinesource
