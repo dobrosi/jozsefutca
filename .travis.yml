@@ -7,6 +7,4 @@ before_script:
   - npm i gulp-inline-source 
 script: gulp inlinesource
 after_script:
-  - git add kaputelefon/kaputelefon-frontend/target/index.html
-  - git commit -m "build"
-  - git push origin HEAD:master
+  - .travis/push.sh
