@@ -12,7 +12,7 @@ commit() {
 }
 
 upload_files() {
-  git push
+  git push origin master
 }
 
 setup_git
