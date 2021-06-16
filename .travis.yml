@@ -1,5 +1,9 @@
+language: node_js
+node_js:
+  - '14'
+  - '12'
+  - '10'
 before_script:
-          - npm install -g gulp-cli
-          - npm i gulp-inline-source 
+  - npm install -g gulp
+  - npm i gulp-inline-source 
 script: gulp inlinesource
-
