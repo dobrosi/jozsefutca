@@ -11,18 +11,10 @@ commit() {
 }
 
 upload_files() {
-  echo "Test1"
-  ls
-  echo "Test2"
-  ls kaputelefon/kaputelefon-frontend
-  echo "Test3"
-  ls kaputelefon/kaputelefon-frontend/target
-  echo "Test4"
-  git remote rm origin
-  git remote add origin https://dobrosi:${GH_TOKEN}@github.com/dobrosi/jozsefutca.git
+  git remote set-url origin https://dobrosi:${GH_TOKEN}@github.com/dobrosi/jozsefutca.git
   git add kaputelefon/kaputelefon-frontend/target/*.html
   git commit -m "target"
-  git push origin master
+  git push
 }
 
 setup_git
