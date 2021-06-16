@@ -7,4 +7,6 @@ before_script:
   - npm i gulp-inline-source 
 script: gulp inlinesource
 after_script:
-  - more kaputelefon/kaputelefon-frontend/target/index.html
+  - git add .
+  - git commit -m "build"
+  - git push
