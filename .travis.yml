@@ -4,6 +4,7 @@ node_js:
   - '12'
   - '10'
 before_script:
-  - npm install -g gulp-cli
+  - npm install gulp
+  - npm install gulp --save-dev
   - npm i gulp-inline-source 
 script: gulp inlinesource
