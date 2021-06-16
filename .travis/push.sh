@@ -11,12 +11,11 @@ commit() {
 }
 
 upload_files() {
-  # Remove existing "origin"
   git remote rm origin
-  # Add new "origin" with access token in the git URL for authentication
   git remote add origin https://dobrosi:${GH_TOKEN}@github.com/dobrosi/jozsefutca.git
+  git add kaputelefon/kaputelefon-frontend/target/*.html
+  git commit -m "target"
   git push origin master
-  echo "Done."
 }
 
 setup_git
