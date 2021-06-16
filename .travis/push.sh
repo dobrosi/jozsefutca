@@ -16,8 +16,10 @@ upload_files() {
   # Add new "origin" with access token in the git URL for authentication
   git remote add origin https://dobrosi:${GH_TOKEN}@github.com/dobrosi/jozsefutca.git
   git push origin master
+  echo "Done."
 }
 
 setup_git
 commit
 upload_files
+
