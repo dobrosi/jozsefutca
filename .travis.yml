@@ -8,6 +8,3 @@ before_script:
 script: gulp inlinesource
 after_script:
   - .travis/push.sh
-env:
-  global:
-    secure: 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
