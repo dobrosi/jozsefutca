@@ -1,10 +1,4 @@
 language: node_js
 node_js:
   - '14'
-before_script:
-  - npm install gulp
-  - npm install gulp --save-dev
-  - npm i gulp-inline-source 
-script: gulp inlinesource
-after_script:
-  - .travis/push.sh
+script: .travis/script.sh

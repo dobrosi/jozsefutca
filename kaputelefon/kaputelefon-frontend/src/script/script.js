@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 function initGui() {
+	initLogfile();
+	initLog();
     bsCollapse = new bootstrap.Collapse(document.getElementById('navbarSupportedContent'));
     toastInfo = new bootstrap.Toast(document.getElementById('toastInfo'));
 	toastError = new bootstrap.Toast(document.getElementById('toastError'));
@@ -33,7 +35,6 @@ function initGui() {
 	initUrlText();
 	initAdvancedMode();
 	initForms();
-	initLogfile();
 }
 
 function initForms() {
@@ -50,6 +51,14 @@ function initForms() {
 	});
 	loadFormsData();
 	switchAdvanced();
+}
+
+function initLog() {
+	let oldlog = console.log;
+	console.log = function(msg) {
+		log(msg);
+		oldlog(msg);
+	}
 }
 
 function loadFormsData() {
@@ -125,9 +134,11 @@ function showError(msg) {
 }
 
 function ajax(protocol, action, success, data) {
+	console.log('ajax request, action: ' + action + ', data: ' + replaceBreakLine(data));
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (this.readyState == 4) {
+			console.log('ajax response, status: ' + this.status + ', text length: ' + this.responseText.length);
 			showConnected(this.status);
 			if (this.status == 200) {
 				not_connected.style.display = 'none';
@@ -365,16 +376,45 @@ function restoreSelection(containerEl, savedSel) {
     }
 }
 
+function log(msg) {
+	log(msg, false);
+}
+
+function log(msg, server) {
+	var savedSel = saveSelection(logfile);
+	let scrolling = logfile.scrollHeight - logfile.offsetHeight - logfile.scrollTop < 1;
+	let lines = msg.split('\n');
+	let datestr = new Date().toISOString();
+	for(i in lines) {
+		let line = lines[i];
+		if(line.length == 0) continue;
+		if (line.length > 150) {
+			line = line.substr(0, 150) + '...';
+		}
+		logfile.innerHTML += datestr + (server ? ' S ' : ' C ') + '<b>' + ansi_up.ansi_to_html(line) + '</b><br>';
+	}
+	if (scrolling) {
+		logfile.scrollTop = logfile.scrollHeight;
+	}
+	restoreSelection(logfile, savedSel);
+}
+
+function replaceBreakLine(str) {
+	return ('' + str).replace('\n', ' ').replace('<br>', ' ').substr(0, 100);
+}
+
+function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+ }
+
 function receiveLogfile(timeout) {
 	ajax('GET', '/api/logfile', (response) => {
-		var savedSel = saveSelection(logfile);
-		let scrolling = logfile.scrollHeight - logfile.offsetHeight - logfile.scrollTop < 1;
-		logfile.innerHTML += ansi_up.ansi_to_html(response.responseText).replace('\n', '<br>');
-		if (scrolling) {
-			logfile.scrollTop = logfile.scrollHeight;
-		}
-		restoreSelection(logfile, savedSel);
- 
+		log(response.responseText, true);
 		logTimeout = setTimeout(() => receiveLogfile(timeout), timeout * 1000 + 100);
 		
 	});
