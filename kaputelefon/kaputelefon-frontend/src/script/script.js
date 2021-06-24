@@ -391,7 +391,8 @@ function log(msg, server) {
 		if (line.length > 150) {
 			line = line.substr(0, 150) + '...';
 		}
-		logfile.innerHTML += datestr + (server ? ' S ' : ' C ') + '<b>' + ansi_up.ansi_to_html(line) + '</b><br>';
+		line = ansi_up.ansi_to_html("\033[1;100;97m" + datestr + (server ? ' S ' : ' C ') + "\033[1;37;40m") + ' <b>' + ansi_up.ansi_to_html(line);
+		logfile.innerHTML += line + '</b><br>';
 	}
 	if (scrolling) {
 		logfile.scrollTop = logfile.scrollHeight;

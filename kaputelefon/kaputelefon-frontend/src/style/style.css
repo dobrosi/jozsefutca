@@ -28,4 +28,5 @@ select.small {
 	overflow: auto;
 	padding: 10px;
 	color: lightgray;
+	line-height: 16px;
 }
