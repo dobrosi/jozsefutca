@@ -130,8 +130,8 @@
 						<form action="/api/icom" class="needs-validation" novalidate>
 							<div class="mb-3 kt-advanced">
 								<label for="ivolText">Csengetés hangerő</label>
-								<input name="ivol" type="number" class="form-control" id="ivolText" placeholder="Csengetés hangerő" min="0" max="255" required>
-								<div class="invalid-feedback">0-255 tartományban választott értéket kötelező megadni.</div>
+								<input name="ivol" type="number" class="form-control" id="ivolText" placeholder="Csengetés hangerő" min="0" max="100" required>
+								<div class="invalid-feedback">0-100 tartományban választott értéket kötelező megadni.</div>
 							</div>
 							<div class="mb-3 kt-advanced">
 								<label for="rvolText">Ajtócsengő hangerő</label>
@@ -140,13 +140,13 @@
 							</div>
 							<div class="mb-3 kt-advanced">
 								<label for="cvolText">Beep hangerő</label>
-								<input name="cvol" type="number" class="form-control" id="cvolText" placeholder="Beep hangerő" min="0" max="255" required>
-								<div class="invalid-feedback">0-255 tartományban választott értéket kötelező megadni.</div>
+								<input name="cvol" type="number" class="form-control" id="cvolText" placeholder="Beep hangerő" min="0" max="100" required>
+								<div class="invalid-feedback">0-100 tartományban választott értéket kötelező megadni.</div>
 							</div>
 							<div class="mb-3 kt-advanced">
 								<label for="hvolText">Fejhallgató hangerő</label>
-								<input name="hvol" type="number" class="form-control" id="hvolText" placeholder="Fejhallgató hangerő" min="0" max="255" required>
-								<div class="invalid-feedback">0-255 tartományban választott értéket kötelező megadni.</div>
+								<input name="hvol" type="number" class="form-control" id="hvolText" placeholder="Fejhallgató hangerő" min="0" max="100" required>
+								<div class="invalid-feedback">0-100 tartományban választott értéket kötelező megadni.</div>
 							</div>
 							<!--
 							<div class="mb-3 kt-advanced">
@@ -165,8 +165,8 @@
 							</div>
 							<div class="mb-3 kt-advanced">
 								<label for="codeText">Kapukód</label>
-								<input name="code" type="number" class="form-control" id="codeText" placeholder="Kapukód" min="100" max="999" required>
-								<div class="invalid-feedback">100-999 tartományban választott értéket kötelező megadni.</div>
+								<input name="code" type="number" class="form-control" id="codeText" placeholder="Kapukód" min="1" max="127" required>
+								<div class="invalid-feedback">1-127 tartományban választott értéket kötelező megadni.</div>
 							</div>
 							<button type="submit" class="btn btn-primary">Mentés</button>
 						</form>
