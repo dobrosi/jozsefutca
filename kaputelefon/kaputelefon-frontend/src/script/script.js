@@ -62,7 +62,8 @@ function initLog() {
 }
 
 function loadFormsData() {
-	document.querySelectorAll('form').forEach(form => loadFormData(form));
+	var i = 0;
+	document.querySelectorAll('form').forEach(form => setTimeout(() => loadFormData(form), ++i * 200));
 	ajax(
 		'GET', 
 		actionContacts, 
