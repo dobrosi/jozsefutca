@@ -4,7 +4,7 @@ setup() {
   mkdir work
   cd work
   cp ../gulpfile.js . 
-  npm install gulp
+  npm install -g gulp-cli
   npm install gulp --save-dev
   npm i gulp-inline-source
 
