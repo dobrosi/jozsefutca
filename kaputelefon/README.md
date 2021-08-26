@@ -180,7 +180,10 @@ Content-Encoding: gzip
 ## Nem fájlok
 
 ### /api/restart - *GET*
-Ujrainditas.
+Újraindítás.
+
+### /api/restart_to_conf - *GET*
+Újraindítás a konfigurációs módban maradással.
 
 ### /api/auth - *GET, PUT*
 wifi parameterek
