@@ -1,3 +1,4 @@
+var version = '1.1.0';
 var configuration = {
 	url: document.location.href,
 	advancedMode: false
@@ -25,6 +26,52 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	initGui();
 });
 
+
+function ajax(protocol, action, success, data) {
+	console.log('ajax request, action: ' + action + ', data: ' + replaceBreakLine(data));
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4) {
+			console.log('ajax response, status: ' + this.status + ', text length: ' + this.responseText.length);
+			showConnected(this.status);
+			if (this.status == 200) {
+				not_connected.style.display = 'none';
+				if (success != null) {
+					success(this);
+				} else {
+					showInfo(this.responseText === "" ? "Kész" : this.responseText);
+				}
+			} else {
+				showError(this.status + ": " + this.statusText);
+			}
+		}
+	};
+	action = action.startsWith('http') ? action : createUrl(action);
+	xhr.open(protocol, action, true);
+	xhr.overrideMimeType('text/json');
+	xhr.send(data);
+}
+
+function getVersion() {
+    ajax('GET', '/api/appversion', e => printInfo());
+}
+
+function getMac(printInfo) {
+    ajax('GET', '/api/mac', e => printInfo());
+}
+
+function restart() {
+    ajax('GET', '/api/restart_to_conf');
+}
+
+function factoryReset() {
+    ajax('GET', '/api/factory_reset');
+}
+
+function testCall() {
+    ajax('GET', '/api/testcall');
+}
+
 function initGui() {
 	initLogfile();
 	initLog();
@@ -32,9 +79,24 @@ function initGui() {
     toastInfo = new bootstrap.Toast(document.getElementById('toastInfo'));
 	toastError = new bootstrap.Toast(document.getElementById('toastError'));
 	not_connected = document.querySelector('#not_connected');
-	initUrlText();
 	initAdvancedMode();
 	initForms();
+	document.getElementById("versionDiv").innerHTML = version;
+}
+
+function switchAdvanced() {
+	let v = document.getElementById('advancedSwitcher').checked;
+	configuration.advancedMode = v;
+	saveConfiguration();
+	let list = document.querySelectorAll('.kt-advanced');
+	var i;
+	for (i = 0; i < list.length; i++) {
+		list[i].style.display = v ? 'block' : 'none';
+	}
+}
+
+function printInfo(e) {
+    document.getElementById("logInfoText").innerHTML = e;
 }
 
 function initForms() {
@@ -60,6 +122,7 @@ function initLog() {
 		oldlog(msg);
 	}
 }
+
 
 function loadFormsData() {
 	var i = 0;
@@ -88,15 +151,6 @@ function loadFormData(form) {
 
 function saveConfiguration() {
 	localStorage.setItem("configuration", JSON.stringify(configuration));
-}
-
-function initUrlText() {
-	let urlTextField = document.querySelector('#urlText');
-	urlTextField.value = configuration.url;
-	urlTextField.addEventListener('change', function() {
-        configuration.url = this.value;
-        saveConfiguration();
-    });
 }
 
 function initAdvancedMode() {
@@ -132,31 +186,6 @@ function showInfo(msg) {
 function showError(msg) {
 	document.querySelector('#errorText').innerHTML = msg;
 	toastError.show();
-}
-
-function ajax(protocol, action, success, data) {
-	console.log('ajax request, action: ' + action + ', data: ' + replaceBreakLine(data));
-	let xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() {
-		if (this.readyState == 4) {
-			console.log('ajax response, status: ' + this.status + ', text length: ' + this.responseText.length);
-			showConnected(this.status);
-			if (this.status == 200) {
-				not_connected.style.display = 'none';
-				if (success != null) {
-					success(this);
-				} else {
-					showInfo(this.responseText === "" ? "Kész" : this.responseText);
-				}
-			} else {
-				showError(this.status + ": " + this.statusText);
-			}
-		}
-	};
-	action = action.startsWith('http') ? action : createUrl(action);
-	xhr.open(protocol, action, true);
-	xhr.overrideMimeType('text/json');
-	xhr.send(data);
 }
 
 function showConnected(status) {
@@ -285,17 +314,6 @@ function showSettings() {
 	});
 }
 
-function switchAdvanced() {
-	let v = document.getElementById('advancedSwitcher').checked;
-	configuration.advancedMode = v;
-	saveConfiguration();
-	let list = document.querySelectorAll('.kt-advanced');
-	var i;
-	for (i = 0; i < list.length; i++) {
-		list[i].style.display = v ? 'block' : 'none';
-	}
-}
-
 function setLogTimeout(timeout) {
 	if (logTimeout != null) {
 		clearInterval(logTimeout);
@@ -385,14 +403,14 @@ function log(msg, server) {
 	var savedSel = saveSelection(logfile);
 	let scrolling = logfile.scrollHeight - logfile.offsetHeight - logfile.scrollTop < 1;
 	let lines = msg.split('\n');
-	let datestr = new Date().toISOString();
+	let datestr = moment().format('HH:mm:ss.SSS');
 	for(i in lines) {
 		let line = lines[i];
 		if(line.length == 0) continue;
 		if (line.length > 150) {
 			line = line.substr(0, 150) + '...';
 		}
-		line = ansi_up.ansi_to_html("\033[1;100;97m" + datestr + (server ? ' S ' : ' C ') + "\033[1;37;40m") + ' <b>' + ansi_up.ansi_to_html(line);
+		line = ansi_up.ansi_to_html("\033[1;100;97m" + datestr + (server ? ' S' : ' C') + "\033[1;37;40m") + ' <b>' + ansi_up.ansi_to_html(line);
 		logfile.innerHTML += line + '</b><br>';
 	}
 	if (scrolling) {
@@ -454,28 +472,4 @@ function jsonp(url, callback) {
     var script = document.createElement('script');
     script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
     document.body.appendChild(script);
-}
-
-function testClientCall() {
-	alert("Comming soon.");
-}
-
-function getVersion() {
-    ajax('GET', '/api/appversion');
-}
-
-function getMac() {
-    ajax('GET', '/api/mac');
-}
-
-function restart() {
-    ajax('GET', '/api/restart_to_conf');
-}
-
-function factoryReset() {
-    ajax('GET', '/api/factory_reset');
-}
-
-function testCall() {
-    ajax('GET', '/api/testcall');
 }
