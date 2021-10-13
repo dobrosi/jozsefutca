@@ -8,4 +8,4 @@ work
 node_modules
 package-lock.json
 kaputelefon/kaputelefon-frontend/target/index.html.gz
-/kaputelefon/kaputelefon-frontend/target/
+kaputelefon/kaputelefon-frontend/target/index.html
