@@ -1,1 +1,1 @@
-gzip -f < index.html > index.html.gz
+gzip -f < target/index.html > target/index.html.gz
