@@ -10,7 +10,10 @@ setup() {
 
   gulp inlinesource
 
+  cp target/index.html ../target/index.html
+
   cd ..
+
 }
 
 setup_git() {
