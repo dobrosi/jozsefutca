@@ -20,7 +20,6 @@ setup_git() {
 }
 
 commit() {
-  git switch master
   git remote set-url origin https://dobrosi:${GH_TOKEN}@github.com/dobrosi/jozsefutca.git
   git add .
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
