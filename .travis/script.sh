@@ -2,8 +2,8 @@
 
 build() {
   cd kaputelefon/kaputelefon-frontend
-  export version = "1.$TRAVIS_BUILD_NUMBER"
-  echo "var version = '$version';" > src/script/version.js
+  export fev="1.$TRAVIS_BUILD_NUMBER"
+  echo "var version = '$fev';" > src/script/version.js
 
   npm install -g gulp-cli
   npm install gulp --save-dev
@@ -13,7 +13,7 @@ build() {
 
   git config --global user.email "dobrosi@gmail.com"
   git config --global user.name "Travis CI"
-  git tag "kaputelefon-frontend-$version"
+  git tag "kaputelefon-frontend-$fev"
 }
 
 build
