@@ -1,4 +1,3 @@
-var version = '1.1.2';
 var configuration = {
 	url: document.location.href,
 	advancedMode: false
