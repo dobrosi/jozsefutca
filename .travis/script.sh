@@ -1,6 +1,8 @@
 #!/bin/sh
 
 build() {
+  cd kaputelefon/kaputelefon-frontend
+
   npm install -g gulp-cli
   npm install gulp --save-dev
   npm i gulp-inline-source
