@@ -35,6 +35,12 @@ A beszélő visszahelyezésével a konfigárciós mód véget ér.
 Mivel az az uzemallapot, amikor 5V (USB) van, viszont vonali feszultseg nincs, nalam nem fordul elo, ezert ez igy kevesse  tesztelt. Igy az van, hogy minden session utan, amikor amugy resetbe/sleepbe mene a kutyu, itt nem megy.
  -> ilyenkor manualisan ki kell huzni az tapot es vissza kell dugni.
 
+## Fejlesztési infó
+Index.html tömörített formátum előállítása:
+```
+gzip -f < index.html > index.html.gz
+```
+
 # REST API
 Első draft HTML:
 
@@ -219,4 +225,7 @@ Teszthivas. Ilyen button is kell majd a guira.
 Applikacio verziot lehet itt lekerni.
 
 ### /api/ota - *PUT*
-Firmware feltoltes. Ezt majd kesobb tisztazzuk.
+Firmware feltoltes.
+```
+curl -X PUT -F file=@kapu_voip-kapu_voip.0.1.12.fw 192.168.0.47/api/ota
+```

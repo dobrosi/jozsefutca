@@ -11,6 +11,8 @@ build() {
 
   gulp inlinesource
 
+  gzip -f < target/index.html > target/index.html.gz
+
   git config --global user.email "dobrosi@gmail.com"
   git config --global user.name "Travis CI"
   git tag "kaputelefon-frontend-$fev"
