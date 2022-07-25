@@ -225,7 +225,15 @@ Teszthivas. Ilyen button is kell majd a guira.
 Applikacio verziot lehet itt lekerni.
 
 ### /api/ota - *PUT*
-Firmware feltoltes.
+####Firmware feltöltés.
 ```
-curl -X PUT -F file=@kapu_voip-kapu_voip.0.1.12.fw 192.168.0.47/api/ota
+curl -X PUT --binary-data @kapu_voip-kapu_voip.0.1.14.fw 192.168.0.47/api/ota
 ```
+####Index.html feltöltés.
+```
+curl -X PUT --binary-data @index.html.gz 192.168.0.47/file/html
+```
+####Travis build
+https://app.travis-ci.com/github/dobrosi/jozsefutca
+####Releases
+https://github.com/dobrosi/jozsefutca/releases
