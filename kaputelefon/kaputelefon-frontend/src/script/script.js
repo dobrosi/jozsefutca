@@ -23,77 +23,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		console.log(e);
 	}
 	initGui();
-
-	showLoading();
-	
-	
 });
-
-
-function showLoading() {
-    Swal.fire({
-        title: "Auto close alert!",
-        text: "I will close in 5 seconds.",
-        showConfirmButton: false,
-        allowEscapeKey: false,
-	allowOutsideClick: false,
-        timerProgressBar: true,
-        didOpen: () => {
-	    Swal.showLoading()
-	    const b = Swal.getHtmlContainer().querySelector('b')
-	    timerInterval = setInterval(() => {
-	      b.textContent = Swal.getTimerLeft()
-	    }, 100)
-	  }
-    })
-}
-
-
-
-function ajax(protocol, action, success, data) {
-	console.log('ajax request, action: ' + action + ', data: ' + replaceBreakLine(data));
-	let xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() {
-		if (this.readyState == 4) {
-			console.log('ajax response, status: ' + this.status + ', text length: ' + this.responseText.length);
-			showConnected(this.status);
-			if (this.status == 200) {
-				not_connected.style.display = 'none';
-				if (success != null) {
-					success(this);
-				} else {
-					showInfo(this.responseText === "" ? "Kész" : this.responseText);
-				}
-			} else {
-				showError(this.status + ": " + this.statusText);
-			}
-		}
-	};
-	action = action.startsWith('http') ? action : createUrl(action);
-	xhr.open(protocol, action, true);
-	xhr.overrideMimeType('text/json');
-	xhr.send(data);
-}
-
-function getVersion() {
-    ajax('GET', '/api/appversion', e => printInfo());
-}
-
-function getMac(printInfo) {
-    ajax('GET', '/api/mac', e => printInfo());
-}
-
-function restart() {
-    ajax('GET', '/api/restart_to_conf');
-}
-
-function factoryReset() {
-    ajax('GET', '/api/factory_reset');
-}
-
-function testCall() {
-    ajax('GET', '/api/testcall');
-}
 
 function initGui() {
 	initLogfile();
@@ -105,21 +35,8 @@ function initGui() {
 	initAdvancedMode();
 	initForms();
 	document.getElementById("versionDiv").innerHTML = version;
-}
-
-function switchAdvanced() {
-	let v = document.getElementById('advancedSwitcher').checked;
-	configuration.advancedMode = v;
-	saveConfiguration();
-	let list = document.querySelectorAll('.kt-advanced');
-	var i;
-	for (i = 0; i < list.length; i++) {
-		list[i].style.display = v ? 'block' : 'none';
-	}
-}
-
-function printInfo(e) {
-    document.getElementById("logInfoText").innerHTML = e;
+    getFirmwareVersion();
+    getMacAddress();
 }
 
 function initForms() {
@@ -135,7 +52,7 @@ function initForms() {
 		});
 	});
 	loadFormsData();
-	switchAdvanced();
+	switchAdvanced(false);
 }
 
 function initLog() {
@@ -146,6 +63,108 @@ function initLog() {
 	}
 }
 
+function initAdvancedMode() {
+	let advancedCheckbox = document.getElementById('advancedSwitcher');
+	advancedCheckbox.checked = configuration.advancedMode;
+	advancedCheckbox.addEventListener('change', function() {
+        switchAdvanced(false);
+    });
+}
+
+function initLogfile() {
+	logfile = document.querySelector("#logfile");
+	let logsleep = document.querySelector('#logsleep');
+	logsleep.addEventListener('change', function() {
+        setLogTimeout(this.value);
+    });
+}
+
+function getFirmwareVersion() {
+    ajax('GET', '/api/appversion', e => printInfo('fwVersionDiv'));
+}
+
+function getMacAddress() {
+    ajax('GET', '/api/mac', e => printInfo('macAddressDiv'));
+}
+
+function restart() {
+    ajax('GET', '/api/restart_to_conf');
+}
+
+function factoryReset() {
+    ajax('GET', '/api/factory_reset');
+}
+
+function testCall() {
+    ajax('GET', '/api/testcall');
+}
+
+function showLoading(titleText) {
+    Swal.fire({
+        title: titleText,
+        showConfirmButton: false,
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        timerProgressBar: true,
+        didOpen: () => {
+	        Swal.showLoading()
+	    }
+    })
+}
+
+function closeLoading() {
+    Swal.close();
+}
+
+function ajax(protocol, action, successCallback, data, finishCallback) {
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4) {
+			console.log('ajax response, status: ' + this.status + ', text length: ' + this.responseText.length);
+			showConnected(this.status);
+			if (this.status == 200) {
+				not_connected.style.display = 'none';
+				if (successCallback != null) {
+					successCallback(this);
+				} else {
+					showInfo(this.responseText === "" ? "Kész" : this.responseText);
+				}
+			} else {
+				showError(this.status + ": " + this.statusText);
+			}
+		}
+		if (finishCallback != null) {
+            finishCallback(this);
+        }
+	};
+	action = action.startsWith('http') ? action : createUrl(action);
+	xhr.open(protocol, action, true);
+	xhr.overrideMimeType('text/json');
+	xhr.send(data);
+}
+
+function switchAdvanced(moreAdvancedMode) {
+	let v = document.getElementById('advancedSwitcher').checked;
+	configuration.advancedMode = v;
+	saveConfiguration();
+    showHide('.kt-advanced', v);
+    showHide('.kt-more-advanced', moreAdvancedMode);
+}
+
+function showHide(clazz, show) {
+	let list = document.querySelectorAll(clazz);
+	var i;
+	for (i = 0; i < list.length; i++) {
+		list[i].style.display = show ? 'block' : 'none';
+	}
+}
+
+function printInfo(e, div) {
+    if (div == null) {
+        div = "logInfoText";
+    }
+    document.getElementById(div).innerHTML = e;
+}
 
 function loadFormsData() {
 	var i = 0;
@@ -174,22 +193,6 @@ function loadFormData(form) {
 
 function saveConfiguration() {
 	localStorage.setItem("configuration", JSON.stringify(configuration));
-}
-
-function initAdvancedMode() {
-	let advancedCheckbox = document.getElementById('advancedSwitcher');
-	advancedCheckbox.checked = configuration.advancedMode;
-	advancedCheckbox.addEventListener('change', function() {
-        switchAdvanced();
-    });
-}
-
-function initLogfile() {
-	logfile = document.querySelector("#logfile");
-	let logsleep = document.querySelector('#logsleep');
-	logsleep.addEventListener('change', function() {
-        setLogTimeout(this.value);
-    });
 }
 
 function jsonToForm(f, data) {
@@ -328,15 +331,6 @@ function menu(l) {
     });
 }
 
-function showSettings() {
-    ajax('GET', '/settingses/1', function(response) {
-		o = JSON.parse(response.responseText);
-    	delete o.indexPage;
-    	delete o._links;
-		document.getElementById('codeBlock').innerHTML = JSON.stringify(o, null, 3);
-	});
-}
-
 function setLogTimeout(timeout) {
 	if (logTimeout != null) {
 		clearInterval(logTimeout);
@@ -442,19 +436,6 @@ function log(msg, server) {
 	restoreSelection(logfile, savedSel);
 }
 
-function replaceBreakLine(str) {
-	return ('' + str).replace('\n', ' ').replace('<br>', ' ').substr(0, 100);
-}
-
-function escapeHtml(unsafe) {
-    return unsafe
-         .replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;");
- }
-
 function receiveLogfile(timeout) {
 	ajax('GET', '/api/logfile', (response) => {
 		log(response.responseText, true);
@@ -468,6 +449,7 @@ function clearLogfile() {
 }
 
 function checkUpdate() {
+    showLoading('Firmware frissítés folyamatban...');
 	ajax('GET', corsProxyUrl + '/get?url=' + releaseUrl, 
 		response => {
 			let release = JSON.parse(JSON.parse(response.responseText).contents).assets[0];
@@ -478,22 +460,8 @@ function checkUpdate() {
 			oReq.onload = function(oEvent) {
 				showInfo('Letöltés: ' + release.name);
   				var blob = oReq.response;
-				ajax('PUT', '/api/ota', null, blob);
+				ajax('PUT', '/api/ota', null, blob, () => setTimeout(() => closeLoading(), 1000));
 			}
 			oReq.send();
 		});
 }
-
-function jsonp(url, callback) {
-    var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
-    window[callbackName] = function(data) {
-        delete window[callbackName];
-        document.body.removeChild(script);
-        callback(data);
-    };
-
-    var script = document.createElement('script');
-    script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
-    document.body.appendChild(script);
-}
-
