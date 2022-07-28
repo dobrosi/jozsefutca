@@ -80,11 +80,11 @@ function initLogfile() {
 }
 
 function getFirmwareVersion() {
-    ajax('GET', '/api/appversion', e => printInfo(e, 'fwVersionDiv'));
+    ajax('GET', '/api/appversion', e => printInfo(e.responseText, 'fwVersionDiv'));
 }
 
 function getMacAddress() {
-    ajax('GET', '/api/mac', e => printInfo(e, 'macAddressDiv'));
+    ajax('GET', '/api/mac', e => printInfo(e.responseText, 'macAddressDiv'));
 }
 
 function restart() {
@@ -131,11 +131,11 @@ function ajax(protocol, action, successCallback, data, finishCallback) {
 				}
 			} else {
 				showError(this.status + ": " + this.statusText);
-			}
+		        }
 		}
 		if (finishCallback != null) {
-            finishCallback(this);
-        }
+                        finishCallback(this);
+                }
 	};
 	action = action.startsWith('http') ? action : createUrl(action);
 	xhr.open(protocol, action, true);
@@ -147,8 +147,8 @@ function switchAdvanced(moreAdvancedMode) {
 	let v = document.getElementById('advancedSwitcher').checked;
 	configuration.advancedMode = v;
 	saveConfiguration();
-    showHide('.kt-advanced', v);
-    showHide('.kt-more-advanced', moreAdvancedMode);
+        showHide('.kt-advanced', v);
+        showHide('.kt-more-advanced', moreAdvancedMode);
 }
 
 function showHide(clazz, show) {
