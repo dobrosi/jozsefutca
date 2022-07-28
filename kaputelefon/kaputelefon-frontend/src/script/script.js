@@ -80,11 +80,11 @@ function initLogfile() {
 }
 
 function getFirmwareVersion() {
-    ajax('GET', '/api/appversion', e => printInfo('fwVersionDiv'));
+    ajax('GET', '/api/appversion', e => printInfo(e, 'fwVersionDiv'));
 }
 
 function getMacAddress() {
-    ajax('GET', '/api/mac', e => printInfo('macAddressDiv'));
+    ajax('GET', '/api/mac', e => printInfo(e, 'macAddressDiv'));
 }
 
 function restart() {
