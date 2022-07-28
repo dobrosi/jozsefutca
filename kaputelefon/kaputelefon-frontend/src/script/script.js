@@ -170,13 +170,13 @@ function loadFormsData() {
 	var i = 0;
 	document.querySelectorAll('form').forEach(form => setTimeout(() => loadFormData(form), ++i * 200));
 	ajax(
-		'GET', 
-		actionContacts, 
+		'GET',
+		actionContacts,
 		r => getContacts(document.getElementById('phonebookForm'), r.responseText))
 	ajax(
-		'GET', 
-		actionAccounts, 
-		r => getAccounts(document.getElementById('accountForm'), 
+		'GET',
+		actionAccounts,
+		r => getAccounts(document.getElementById('accountForm'),
 		r.responseText));
 }
 
@@ -440,7 +440,7 @@ function receiveLogfile(timeout) {
 	ajax('GET', '/api/logfile', (response) => {
 		log(response.responseText, true);
 		logTimeout = setTimeout(() => receiveLogfile(timeout), timeout * 1000 + 100);
-		
+
 	});
 }
 
@@ -450,7 +450,7 @@ function clearLogfile() {
 
 function checkUpdate() {
     showLoading('Firmware frissítés folyamatban...');
-	ajax('GET', corsProxyUrl + '/get?url=' + releaseUrl, 
+	ajax('GET', corsProxyUrl + '/get?url=' + releaseUrl,
 		response => {
 			let release = JSON.parse(JSON.parse(response.responseText).contents).assets[0];
 			let url = release.browser_download_url;
