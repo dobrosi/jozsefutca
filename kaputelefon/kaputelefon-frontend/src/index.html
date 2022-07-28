@@ -13,6 +13,7 @@
 	<script inline src="https://cdn.jsdelivr.net/npm/ansi_up"></script>
 	<script inline src="https://cdn.jsdelivr.net/npm/rangy"></script>
 	<script inline src="https://cdn.jsdelivr.net/npm/moment"></script>
+	<script inline src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.24/dist/sweetalert2.all.min.js"></script>
 	<script inline src="script/version.js"></script>
 	<script inline src="script/script.js"></script>
 </head>
@@ -224,8 +225,11 @@
 		</div>
 		<div class="card">
 			<div class="card-body">
+				<div class="mb-3 kt-advanced" onclick="switchAdvanced(true)">
+					<label for="codeText">MAC cím: </label><label id="macAddressDiv"></label>
+				</div>
 				<div class="mb-3">
-					<label for="codeText">MAC address: </label><label id="macAddressDiv"></label>
+					<label for="codeText">Firmware verzió: </label><label id="fwVersionDiv"></label>
 				</div>
 				<div class="mb-3">
 					<a href="file/COPYING_baresip">License fájl</a>
@@ -233,7 +237,7 @@
 			</div>
 		</div>
 
-		<div style="display: none;" class="card">
+		<div class="kt-more-advanced card">
 			<div class="card-body">
 				<form action="/api/settings" class="needs-validation" novalidate>
 					<div class="mb-3">
@@ -273,7 +277,7 @@
 				</div>
 			</div>
 
-			<div style="display: none;" class="card">
+			<div class="kt-more-advanced card">
 				<div class="card-body">
 					<form id="indexFileForm" class="needs-validation" novalidate>
 						<div class="mb-3">
