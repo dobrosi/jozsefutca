@@ -23,7 +23,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		console.log(e);
 	}
 	initGui();
+
+	showLoading();
+	
+	
 });
+
+
+function showLoading() {
+    Swal.fire({
+        title: "Auto close alert!",
+        text: "I will close in 5 seconds.",
+        showConfirmButton: false,
+        allowEscapeKey: false,
+	allowOutsideClick: false,
+        timerProgressBar: true,
+        didOpen: () => {
+	    Swal.showLoading()
+	    const b = Swal.getHtmlContainer().querySelector('b')
+	    timerInterval = setInterval(() => {
+	      b.textContent = Swal.getTimerLeft()
+	    }, 100)
+	  }
+    })
+}
+
 
 
 function ajax(protocol, action, success, data) {
@@ -472,3 +496,4 @@ function jsonp(url, callback) {
     script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
     document.body.appendChild(script);
 }
+
