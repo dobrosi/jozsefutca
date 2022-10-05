@@ -22,28 +22,6 @@ A beszélő visszahelyezésével a konfigárciós mód véget ér.
 Mivel az az uzemallapot, amikor 5V (USB) van, viszont vonali feszultseg nincs, nalam nem fordul elo, ezert ez igy kevesse  tesztelt. Igy az van, hogy minden session utan, amikor amugy resetbe/sleepbe mene a kutyu, itt nem megy.
  -> ilyenkor manualisan ki kell huzni az tapot es vissza kell dugni.
 
-## Fejlesztési infó
-Index.html tömörített formátum előállítása:
-```
-gzip -f < index.html > index.html.gz
-```
-
-### Travis build
-https://app.travis-ci.com/github/dobrosi/kaputelefon-frontend
-
-### Releases
-## Firmware
-https://github.com/dobrosi/jozsefutca/releases
-```
-curl -s https://api.github.com/repos/dobrosi/jozsefutca/releases/latest | grep browser_download_url | cut -d '"' -f 4
-```
-## Index.html
-https://github.com/dobrosi/kaputelefon-frontend/releases
-```
-curl -s https://api.github.com/repos/dobrosi/kaputelefon-frontend/releases/latest | grep browser_download_url | cut -d '"' -f 4
-```
-
-
 # REST API
 
 ## Fájlok
@@ -181,6 +159,28 @@ Index.html feltöltés.
 ```
 curl -X PUT --binary-data @index.html.gz kaputelefon.local/file/html
 ```
+
+# Fejlesztési infó
+Index.html tömörített formátum előállítása:
+```
+gzip -f < index.html > index.html.gz
+```
+
+## Travis build
+https://app.travis-ci.com/github/dobrosi/kaputelefon-frontend
+
+## Releases
+### Firmware
+https://github.com/dobrosi/jozsefutca/releases
+```
+curl -s https://api.github.com/repos/dobrosi/jozsefutca/releases/latest | grep browser_download_url | cut -d '"' -f 4
+```
+### Index.html
+https://github.com/dobrosi/kaputelefon-frontend/releases
+```
+curl -s https://api.github.com/repos/dobrosi/kaputelefon-frontend/releases/latest | grep browser_download_url | cut -d '"' -f 4
+```
+
 
 # Dokumentálás
 https://www.overleaf.com/project/6087b99d3619c884e0701cfa
