@@ -162,6 +162,7 @@ curl -X PUT --binary-data @index.html.gz kaputelefon.local/file/html
 
 # Fejlesztési infó
 Frontend projekt: https://github.com/dobrosi/kaputelefon-frontend
+
 Index.html tömörített formátum előállítása:
 ```
 gzip -f < index.html > index.html.gz
@@ -181,7 +182,6 @@ https://github.com/dobrosi/kaputelefon-frontend/releases
 ```
 curl -s https://api.github.com/repos/dobrosi/kaputelefon-frontend/releases/latest | grep browser_download_url | cut -d '"' -f 4
 ```
-
 
 # Dokumentálás
 https://www.overleaf.com/project/6087b99d3619c884e0701cfa
