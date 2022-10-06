@@ -161,6 +161,7 @@ curl -X PUT --binary-data @index.html.gz kaputelefon.local/file/html
 ```
 
 # Fejlesztési infó
+Frontend projekt: https://github.com/dobrosi/kaputelefon-frontend
 Index.html tömörített formátum előállítása:
 ```
 gzip -f < index.html > index.html.gz
