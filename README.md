@@ -90,7 +90,7 @@ IP=`avahi-resolve -n kaputelefon.local | head -1 | cut -f 2`
 
 if test $1 = put; then
 echo uploading $2
-curl -X PUT --data-binary @$2 $IP/$2
+curl -X PUT --binary-data @$2 $IP/$2
 else
 curl $IP/$2
 fi
@@ -150,7 +150,7 @@ curl -X PUT --binary-data @kapu_voip-kapu_voip.0.1.14.fw kaputelefon.local/api/o
 All-in-one megoldás
 ```bash
 $(eval IP := $(shell avahi-resolve -n kaputelefon.local | head -1 | cut -f 2))
-curl -# -X PUT --data-binary @$(APP_BIN) $(IP)/ota -o /dev/null
+curl -# -X PUT --binary-data @$(APP_BIN) $(IP)/ota -o /dev/null
 curl -X PUT $(IP)/reset   --> ujrainditas, lasd lejjebb
 ```
 
