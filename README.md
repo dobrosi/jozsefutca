@@ -90,7 +90,7 @@ IP=`avahi-resolve -n kaputelefon.local | head -1 | cut -f 2`
 
 if test $1 = put; then
 echo uploading $2
-curl -X PUT --binary-data @$2 $IP/$2
+curl -X PUT --data-binary @$2 $IP/$2
 else
 curl $IP/$2
 fi
@@ -113,7 +113,7 @@ Content-Encoding: gzip
 ### /api/auth - *GET, PUT*
 wifi parameterek
 ```
-curl -X PUT kaputelefon.local/wifi_settings?password=12345678\&ssid=f
+curl -X PUT http://kaputelefon.local/auth?password=12345678\&ssid=f
 ```
 
 ### /api/icom - *GET, PUT*
@@ -127,7 +127,7 @@ Itt ezeket lehet beallitani:
 - code: kapukod (marmint a keszulek kodja: 1-255)
 
 ```
-curl -X PUT kaputelefon.local/icom?gvol=8
+curl -X PUT http://kaputelefon.local/icom?gvol=8
 ```
 
 ### /api/factory_reset - *GET, PUT*
@@ -145,19 +145,19 @@ Applikacio verziot lehet itt lekerni.
 ### /api/ota - *PUT*
 Firmware feltöltés.
 ```
-curl -X PUT --binary-data @kapu_voip-kapu_voip.0.1.14.fw kaputelefon.local/api/ota
+curl -X PUT --data-binary @kapu_voip-kapu_voip.0.1.14.fw kaputelefon.local/api/ota
 ```
 All-in-one megoldás
 ```bash
 $(eval IP := $(shell avahi-resolve -n kaputelefon.local | head -1 | cut -f 2))
-curl -# -X PUT --binary-data @$(APP_BIN) $(IP)/ota -o /dev/null
+curl -# -X PUT --data-binary @$(APP_BIN) $(IP)/ota -o /dev/null
 curl -X PUT $(IP)/reset   --> ujrainditas, lasd lejjebb
 ```
 
 ### /file/html - *PUT*
 Index.html feltöltés.
 ```
-curl -X PUT --binary-data @index.html.gz kaputelefon.local/file/html
+curl -X PUT --data-binary @index.html.gz http://kaputelefon.local/file/html
 ```
 
 # Fejlesztési infó
