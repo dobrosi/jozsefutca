@@ -103,6 +103,8 @@ Content-Encoding: gzip
 ```
 
 ## Nem fájlok
+### /api/logfile - *GET*
+Log
 
 ### /api/restart - *GET*
 Újraindítás.
@@ -110,13 +112,31 @@ Content-Encoding: gzip
 ### /api/restart_to_conf - *GET*
 Újraindítás a konfigurációs módban maradással.
 
-### /api/auth - *GET, PUT*
-wifi parameterek
-```
-curl -X PUT http://kaputelefon.local/auth?password=12345678\&ssid=f
-```
 
 ### /api/settings - *GET, PUT*
+```
+{
+type: "mkt",
+testmode: "1",
+ssid: "****",
+password: "****",
+code: "1",
+rvol: "20",
+ivol: "0",
+cvol: "5",
+hvol: "78",
+vvol: "77",
+lvol: "55",
+ctim: "0",
+sta: "1",
+voip: "1",
+hdpx: "1",
+flog: "1",
+hlog: "1",
+dnsc: "1",
+rfc7710: "1"
+}
+```
 Itt ezeket lehet beallitani:
 - type: enum, kaputelefon tipus: codefon,mkt,laskomex (jelenleg csak codefon)
 - testmode: boolean, ha 1, akkor test mode-ban van
@@ -140,8 +160,13 @@ Itt ezeket lehet beallitani:
 ```
 curl -X PUT http://kaputelefon.local/settings?rvol=8
 ```
-### /api/stat - *GET, PUT*
+### /api/stat - *GET*
 Status
+```
+{
+wstat: "01"
+}
+```
 
 ### /api/factory_reset - *GET, PUT*
 Factory reset.
