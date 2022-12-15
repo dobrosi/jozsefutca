@@ -116,19 +116,32 @@ wifi parameterek
 curl -X PUT http://kaputelefon.local/auth?password=12345678\&ssid=f
 ```
 
-### /api/icom - *GET, PUT*
+### /api/settings - *GET, PUT*
 Itt ezeket lehet beallitani:
-- gvol: kapu volume (csengetes hangero)
+- type: enum, kaputelefon tipus: codefon,mkt,laskomex (jelenleg csak codefon)
+- testmode: boolean, ha 1, akkor test mode-ban van
+- ssid: WIFI AP SSID-ja, amihez csatlakozik
+- password: WIFI AP jelszava
+- code: kapu kod (Codefon eseten)
 - rvol: ring volume (ajtocsengo hangero)
+- ivol: kaputelefon belso csengetes hangereje 
 - cvol: config mode beep hangero
-- mvol: microphone volume
 - hvol: headphone volume
-- type: kaputelefon tipus: codefon,mkt,laskomex (jelenleg csak codefon)
-- code: kapukod (marmint a keszulek kodja: 1-255)
-
+- vvol:
+- lvol:
+- ctim: szerviz mode timeout (0 eseten nincs timeout)
+- sta: boolean, kapcsolodjon WIFI-hez
+- voip: boolean, kapcsolodjon SIP-hez
+- hdpx: boolean, halfduplex
+- flog: boolean, file logolas
+- hlog: boolean, online logolas
+- dnsc: boolean
+- rfc7710: boolean
 ```
-curl -X PUT http://kaputelefon.local/icom?gvol=8
+curl -X PUT http://kaputelefon.local/settings?rvol=8
 ```
+### /api/stat - *GET, PUT*
+Status
 
 ### /api/factory_reset - *GET, PUT*
 Factory reset.
